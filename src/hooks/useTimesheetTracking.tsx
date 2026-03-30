@@ -192,10 +192,6 @@ export function useTimesheetTracking() {
               existing.highest_escalation = (record.escalation_level || 'none') as 'none' | 'late' | 'critical';
             }
             
-            // Update oldest date
-            if (!existing.oldest_overdue_date || record.work_date < existing.oldest_overdue_date) {
-              existing.oldest_overdue_date = record.work_date;
-            }
             
             // Update counts
             if (record.escalation_level === 'critical') existing.critical_count += 1;
