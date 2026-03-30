@@ -117,7 +117,8 @@ export function useTimesheetTracking() {
 
       // Match shift records to timesheet tracking records
       const recordsWithShiftData = data.map(record => {
-        const key = `${record.operator_id}_${record.work_date}`;
+        const workDate = (record.last_updated || record.created_at || '').split('T')[0];
+        const key = `${record.operator_id}_${workDate}`;
         const shiftData = shiftRecordMap.get(key);
         return {
           ...record,
@@ -125,7 +126,7 @@ export function useTimesheetTracking() {
         };
       });
 
-      setAllRecords(recordsWithShiftData as TimesheetTrackingRecord[]);
+      setAllRecords(recordsWithShiftData as unknown as TimesheetTrackingRecord[]);
     } catch (error) {
       console.error('Error fetching all records:', error);
     }
