@@ -32,9 +32,15 @@ export interface PrintedLabelInsert {
   invoice?: string;
   quantity?: number;
   date_printed?: string;
-  box_number?: number;
+  box_number?: string | number;
   line_item_index?: number;
   user_id?: string;
+  customer?: string;
+  operator?: string;
+  laser?: string;
+  print_date?: string;
+  document_id?: string;
+  pallet_name?: string;
 }
 
 export function usePrintedLabels(dateFrom?: Date, dateTo?: Date, limit = 100, offset = 0) {
