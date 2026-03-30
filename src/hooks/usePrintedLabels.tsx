@@ -118,7 +118,7 @@ export function useInsertPrintedLabel() {
     mutationFn: async (label: PrintedLabelInsert) => {
       const { data, error } = await supabase
         .from('printed_labels')
-        .insert([label])
+        .insert([label as any])
         .select()
         .single();
 
