@@ -81,18 +81,18 @@ export const OEEDataQualityPanel: React.FC<OEEDataQualityPanelProps> = ({ classN
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold">
-                {metrics.correction_percentage.toFixed(1)}%
+                {(100 - (metrics?.data_completeness || 100)).toFixed(1)}%
               </div>
               <div className="text-sm text-muted-foreground">Need Correction</div>
             </div>
           </div>
         )}
 
-        {metrics && metrics.correction_percentage > 0 && (
+        {metrics && (100 - (metrics.data_completeness || 100)) > 0 && (
           <Alert>
             <AlertTriangle className="h-4 w-4" />
             <AlertDescription>
-              {metrics.records_with_corrections} records have missing or incomplete data that could affect OEE calculations.
+              {metrics.records_without_hours} records have missing or incomplete data that could affect OEE calculations.
             </AlertDescription>
           </Alert>
         )}
