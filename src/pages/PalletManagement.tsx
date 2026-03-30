@@ -142,7 +142,7 @@ export default function PalletManagement() {
       const { supabase } = await import('@/integrations/supabase/client');
       const { error } = await supabase
         .from('pallets')
-        .update({ max_capacity: newCapacity })
+        .update({ notes: `capacity:${newCapacity}` })
         .eq('id', editingPallet.id);
 
       if (error) throw error;
