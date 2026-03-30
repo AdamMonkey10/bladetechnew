@@ -134,6 +134,48 @@ export type Database = {
         }
         Relationships: []
       }
+      backup_logs: {
+        Row: {
+          action_type: string
+          backup_date: string
+          completed_at: string | null
+          created_at: string
+          error_message: string | null
+          file_path: string | null
+          file_size_bytes: number | null
+          github_url: string | null
+          id: string
+          status: string
+          tables_included: Json | null
+        }
+        Insert: {
+          action_type?: string
+          backup_date: string
+          completed_at?: string | null
+          created_at?: string
+          error_message?: string | null
+          file_path?: string | null
+          file_size_bytes?: number | null
+          github_url?: string | null
+          id?: string
+          status?: string
+          tables_included?: Json | null
+        }
+        Update: {
+          action_type?: string
+          backup_date?: string
+          completed_at?: string | null
+          created_at?: string
+          error_message?: string | null
+          file_path?: string | null
+          file_size_bytes?: number | null
+          github_url?: string | null
+          id?: string
+          status?: string
+          tables_included?: Json | null
+        }
+        Relationships: []
+      }
       box_number_sequences: {
         Row: {
           created_at: string
