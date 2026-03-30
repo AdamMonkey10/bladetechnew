@@ -5,6 +5,7 @@ export interface TimesheetTrackingRecord {
   id: string;
   operator_id: string | null;
   operator_name?: string | null;
+  work_date?: string;
   week_number: number;
   year: number;
   actual_shifts?: number | null;
@@ -16,7 +17,9 @@ export interface TimesheetTrackingRecord {
   timesheet_submitted_at?: string | null;
   days_overdue?: number;
   escalation_level?: string;
+  clockfy_events_exist?: boolean;
   created_at: string;
+  updated_at?: string;
   last_updated?: string | null;
   operators?: {
     operator_name: string;
