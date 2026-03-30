@@ -33,7 +33,7 @@ export function usePrinterSettings() {
       // Fetch the user's settings row (unique per user now)
       const { data, error } = await supabase
         .from('printer_settings')
-        .select('id, ip_address, port, label_width_mm, label_height_mm')
+        .select('id, printer_ip, printer_port, label_width_mm, label_height_mm')
         .eq('user_id', user.id)
         .maybeSingle();
 
