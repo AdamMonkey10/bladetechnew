@@ -40,11 +40,11 @@ export function useCustomers() {
       const { data, error } = await supabase
         .from('customers')
         .select('*')
-        .eq('is_active', true)
-        .order('customer_name');
+        .eq('active', true)
+        .order('name');
       
       if (error) throw error;
-      return data as Customer[];
+      return (data || []).map(d => ({ ...d, customer_name: d.customer_name || d.name })) as unknown as Customer[];
     },
   });
 
