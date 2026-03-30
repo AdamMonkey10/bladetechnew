@@ -24,7 +24,7 @@ export function DataQualityPanel() {
 
   const handleFixData = async () => {
     const results = await fixMissingHours();
-    if (results.length > 0) {
+    if (typeof results === 'number' ? results > 0 : (results as any[])?.length > 0) {
       setShowCorrections(true);
     }
   };

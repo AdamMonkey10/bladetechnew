@@ -34,11 +34,7 @@ export const useGoodsReceived = () => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('goods_received')
-        .select(`
-          *,
-          suppliers(name),
-          raw_materials(material_name)
-        `)
+        .select('*')
         .eq('good_status', true)
         .in('warehouse_status', ['pending', 'partial'])
         .order('received_date', { ascending: false });

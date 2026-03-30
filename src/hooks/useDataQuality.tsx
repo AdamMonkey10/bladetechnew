@@ -65,7 +65,7 @@ export const useDataQuality = () => {
 
   return {
     isFixing,
-    corrections,
+    corrections: [] as any[],
     metrics,
     fixMissingHours,
     getDataQualityMetrics,

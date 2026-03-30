@@ -159,7 +159,7 @@ export const useCustomerPOs = () => {
     mutationFn: async (id: string) => {
       const { data, error } = await supabase
         .from('customer_pos')
-        .update({ status: true })
+        .update({ status: 'completed' })
         .eq('id', id)
         .select()
         .single();

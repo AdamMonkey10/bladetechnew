@@ -25,10 +25,11 @@ export const OEEDataQualityPanel: React.FC<OEEDataQualityPanelProps> = ({ classN
 
   const handleFixMissingData = async () => {
     const result = await fixMissingHours();
-    if (result && result.length > 0) {
+    const count = typeof result === 'number' ? result : Array.isArray(result) ? result.length : 0;
+    if (count > 0) {
       toast({
         title: "Data Fixed",
-        description: `Fixed ${result.length} records with missing hours`,
+        description: `Fixed ${count} records with missing hours`,
       });
     }
   };

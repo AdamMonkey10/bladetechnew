@@ -91,24 +91,16 @@ export const OEESummaryPopulator: React.FC<OEESummaryPopulatorProps> = ({ classN
           await supabase
             .from('oee_daily_summary')
             .upsert({
-              calculation_date: date,
-              activity_type: activityType,
-              total_units: totals.units,
-              total_time: totals.time,
-              total_scrap: totals.scrap,
-              booked_hours: totals.booked_hours,
-              target_rate_247: targetRate,
-              target_rate_booked: targetRate,
-              availability_247: Math.max(0, Math.min(100, availability247)),
-              performance_247: Math.max(0, Math.min(200, performance247)),
+              summary_date: date,
+              machine_name: activityType,
+              total_pieces: totals.units,
+              good_pieces: totals.units - totals.scrap,
+              defect_pieces: totals.scrap,
+              availability: Math.max(0, Math.min(100, availability247)),
+              performance: Math.max(0, Math.min(200, performance247)),
               quality: Math.max(0, Math.min(100, quality)),
-              oee_247: Math.max(0, Math.min(100, oee247)),
-              availability_booked: 100,
-              performance_booked: Math.max(0, Math.min(200, performanceBooked)),
-              oee_booked: Math.max(0, Math.min(100, oeeBooked))
-            }, {
-              onConflict: 'calculation_date,activity_type'
-            });
+              oee: Math.max(0, Math.min(100, oee247)),
+            } as any);
         }
       }
 

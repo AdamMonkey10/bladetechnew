@@ -52,7 +52,7 @@ export function useCustomers() {
     mutationFn: async (customerData: CreateCustomerData) => {
       const { data, error } = await supabase
         .from('customers')
-        .insert([customerData])
+        .insert([{ name: customerData.name || customerData.customer_name || '', ...customerData } as any])
         .select()
         .single();
       
