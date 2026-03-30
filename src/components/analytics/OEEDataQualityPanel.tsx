@@ -41,7 +41,7 @@ export const OEEDataQualityPanel: React.FC<OEEDataQualityPanelProps> = ({ classN
   const getQualityStatus = () => {
     if (!metrics) return { variant: 'outline' as const, icon: RefreshCw, text: 'Loading...' };
     
-    const correctionRate = metrics.correction_percentage;
+    const correctionRate = 100 - (metrics?.data_completeness || 100);
     if (correctionRate === 0) {
       return { variant: 'default' as const, icon: CheckCircle, text: 'Excellent' };
     } else if (correctionRate < 10) {
