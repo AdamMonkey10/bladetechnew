@@ -4,31 +4,29 @@ import { useToast } from '@/hooks/use-toast';
 
 export interface Customer {
   id: string;
-  customer_name: string;
-  template_name: string;
+  name: string;
+  customer_name?: string;
+  template_name?: string;
   logo_url?: string;
-  logo_position: {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-  };
+  logo_position?: any;
   zpl_code?: string;
-  is_active: boolean;
+  is_active?: boolean;
+  active?: boolean;
+  code?: string;
+  address?: string;
+  contact_email?: string;
+  contact_phone?: string;
+  notes?: string;
   created_at: string;
   updated_at: string;
 }
 
 export interface CreateCustomerData {
-  customer_name: string;
-  template_name: string;
+  name: string;
+  customer_name?: string;
+  template_name?: string;
   logo_url?: string;
-  logo_position?: {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-  };
+  logo_position?: any;
   zpl_code?: string;
 }
 
