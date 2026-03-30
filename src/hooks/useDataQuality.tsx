@@ -14,7 +14,6 @@ interface DataQualityMetrics {
 
 export const useDataQuality = () => {
   const [isFixing, setIsFixing] = useState(false);
-  const [corrections, setCorrections] = useState<CorrectionRecord[]>([]);
   const [metrics, setMetrics] = useState<DataQualityMetrics | null>(null);
   const { toast } = useToast();
 
