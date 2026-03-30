@@ -57,7 +57,7 @@ export function usePaginatedPrintedLabels(
         dataQuery = dataQuery.gte('date_printed', format(dateFrom, 'yyyy-MM-dd'));
       }
       if (dateTo) {
-        dataQuery = dataQuery.lte('print_date', format(dateTo, 'yyyy-MM-dd'));
+        dataQuery = dataQuery.lte('date_printed', format(dateTo, 'yyyy-MM-dd'));
       }
 
       const { data, error } = await dataQuery;
