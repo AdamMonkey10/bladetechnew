@@ -189,7 +189,7 @@ export function useTimesheetTracking() {
             // Update highest escalation level
             const escalationPriority = { 'none': 0, 'late': 1, 'critical': 2 };
             if (escalationPriority[(record.escalation_level || 'none') as keyof typeof escalationPriority] > escalationPriority[existing.highest_escalation]) {
-              existing.highest_escalation = record.escalation_level as 'none' | 'late' | 'critical';
+              existing.highest_escalation = (record.escalation_level || 'none') as 'none' | 'late' | 'critical';
             }
             
             // Update oldest date
