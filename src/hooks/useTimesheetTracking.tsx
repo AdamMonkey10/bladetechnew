@@ -271,8 +271,8 @@ export function useTimesheetTracking() {
       
       for (const tracking of trackingData || []) {
         // Format dates with UTC timezone markers for proper comparison
-        const startOfDay = `${tracking.work_date}T00:00:00Z`;
-        const endOfDay = `${tracking.work_date}T23:59:59Z`;
+        const startOfDay = `${tracking.created_at?.split('T')[0] || ''}T00:00:00Z`;
+        const endOfDay = `${tracking.created_at?.split('T')[0] || ''}T23:59:59Z`;
         
         const { data: timeEvents, error: timeError } = await supabase
           .from('clockfy_time_events')
