@@ -45,7 +45,7 @@ export const useOptimizedPrintedLabels = (operatorCode?: string, dateRange?: { s
       try {
         let query = supabase
           .from('printed_labels')
-          .select('id, sku, invoice, po, quantity, print_date, operator');
+          .select('id, sku, invoice, po, quantity, date_printed, box_number');
 
         if (operatorCode) {
           query = query.eq('operator', operatorCode);

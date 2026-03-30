@@ -16,16 +16,15 @@ export interface Pallet {
 
 export interface PalletAssignment {
   id: string;
-  pallet_id: string;
-  printed_label_id: string;
+  pallet_id: string | null;
+  printed_label_id: string | null;
   assigned_at: string;
-  assigned_by: string;
 }
 
 export interface CreatePalletData {
-  customer: string;
-  po_number: string;
-  max_capacity?: number;
+  pallet_number: string;
+  po?: string;
+  sku?: string;
 }
 
 export interface AssignLabelToPalletData {

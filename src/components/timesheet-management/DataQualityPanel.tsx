@@ -131,7 +131,7 @@ export function DataQualityPanel() {
             </div>
           </div>
 
-          {metrics?.records_with_corrections === 0 && (
+          {metrics?.records_without_hours === 0 && (
             <Alert>
               <CheckCircle2 className="h-4 w-4" />
               <AlertDescription>

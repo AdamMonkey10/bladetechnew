@@ -80,7 +80,7 @@ export function DataQualityPanel() {
           <div className="flex gap-2">
             <Button 
               onClick={handleFixData} 
-              disabled={isFixing || (metrics?.records_with_corrections || 0) === 0}
+              disabled={isFixing || (metrics?.records_without_hours || 0) === 0}
               className="flex items-center gap-2"
             >
               {isFixing ? (

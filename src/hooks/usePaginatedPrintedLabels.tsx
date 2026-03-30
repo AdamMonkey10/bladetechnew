@@ -64,7 +64,7 @@ export function usePaginatedPrintedLabels(
       if (error) throw error;
 
       const result: PaginatedResult<PrintedLabel> = {
-        data: data as PrintedLabel[],
+        data: (data || []) as unknown as PrintedLabel[],
         count: count || 0,
         hasMore: (offset + pageSize) < (count || 0),
         nextOffset: (offset + pageSize) < (count || 0) ? offset + pageSize : undefined,

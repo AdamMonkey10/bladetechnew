@@ -121,7 +121,7 @@ export const OEEDataQualityPanel: React.FC<OEEDataQualityPanelProps> = ({ classN
             <RefreshCw className="h-4 w-4 mr-2" />
             Refresh
           </Button>
-          {metrics && metrics.correction_percentage > 0 && (
+          {metrics && (100 - (metrics.data_completeness || 100)) > 0 && (
             <Button
               variant="default"
               size="sm"

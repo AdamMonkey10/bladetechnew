@@ -110,11 +110,10 @@ export function useLabelSessions() {
       const { error } = await supabase
         .from('label_printing_sessions')
         .upsert({
+          sku: sessionData.SKU || 'unknown',
+          po: sessionData.PO || undefined,
           user_id: user.id,
-          ...sessionPayload
-        }, {
-          onConflict: 'user_id,laser_machine_id,session_date'
-        });
+        } as any);
 
       if (error) throw error;
     } catch (error) {

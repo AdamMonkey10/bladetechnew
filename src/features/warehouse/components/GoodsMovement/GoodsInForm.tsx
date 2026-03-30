@@ -499,8 +499,8 @@ const GoodsInForm: React.FC<GoodsInFormProps> = ({ open, onOpenChange, onSuccess
                                   <span className="text-muted-foreground">-</span>
                                 )}
                               </td>
-                              <td className="p-2">{goods.raw_materials?.material_name}</td>
-                              <td className="p-2 text-xs">{goods.suppliers?.name}</td>
+                              <td className="p-2">{goods.sku}</td>
+                              <td className="p-2 text-xs">{goods.supplier}</td>
                               <td className="p-2">
                                 {goods.pallet_number ? (
                                   <Badge variant="secondary" className="font-mono">
