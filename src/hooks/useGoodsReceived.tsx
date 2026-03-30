@@ -16,7 +16,7 @@ export const useGoodsReceived = () => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('goods_received')
-        .select('*, suppliers(name)')
+        .select('*')
         .order('received_date', { ascending: false });
 
       if (error) throw error;
