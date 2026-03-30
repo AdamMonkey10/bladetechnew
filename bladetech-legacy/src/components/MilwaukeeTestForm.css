@@ -1,0 +1,72 @@
+/* MilwaukeeTestForm.css */
+
+/*Container styling */
+.form-container {
+  max-width: 600px;
+  margin: 0 auto; /* Center the form on the page */
+  padding: 20px;
+  background-color: #f9f9f9; /* Light graybackground */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Form field styling */
+form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form input:focus {
+  border-color: #66afe9;
+  outline: none;
+}
+
+/* Submit button styling */
+.submit-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4eb857; /* Updated to Navbar green color */
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #3da34a; /* Darker green on hover */
+}
+
+.submit-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Success and error messages */
+.success-message {
+  color: #28a745; /* Bootstrap success color */
+  text-align: center;
+  margin-top: 15px;
+}
+
+.error-message {
+  color: #dc3545; /* Bootstrap danger color */
+  text-align: center;
+  margin-top: 15px;
+}
