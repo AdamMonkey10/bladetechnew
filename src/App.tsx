@@ -104,13 +104,15 @@ const App = () => (
               <Route path="/weekly-breakdown" element={<WeeklyBreakdownPage />} />
               <Route path="/production-charts" element={<ProductionCharts />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/device-management" element={<DeviceManagement />} />
               {/* Conditionally register warehouse route */}
               {isWarehouseEnabled() && <Route {...registerWarehouseRoute()} />}
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
-      </AuthProvider>
+        </AuthProvider>
+      </DeviceGate>
     </TooltipProvider>
   </QueryClientProvider>
 );
