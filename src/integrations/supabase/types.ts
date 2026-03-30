@@ -1577,6 +1577,36 @@ export type Database = {
           },
         ]
       }
+      registered_devices: {
+        Row: {
+          device_fingerprint: string
+          device_name: string
+          id: string
+          is_active: boolean
+          last_used_at: string | null
+          location: string | null
+          registered_at: string
+        }
+        Insert: {
+          device_fingerprint: string
+          device_name: string
+          id?: string
+          is_active?: boolean
+          last_used_at?: string | null
+          location?: string | null
+          registered_at?: string
+        }
+        Update: {
+          device_fingerprint?: string
+          device_name?: string
+          id?: string
+          is_active?: boolean
+          last_used_at?: string | null
+          location?: string | null
+          registered_at?: string
+        }
+        Relationships: []
+      }
       report_groups: {
         Row: {
           created_at: string
