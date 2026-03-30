@@ -122,7 +122,7 @@ export function DataQualityPanel() {
               </Button>
               <Button
                 onClick={handleFixIssues}
-                disabled={isFixing || !metrics?.records_with_corrections}
+                disabled={isFixing || !metrics?.records_without_hours}
                 size="sm"
               >
                 <Wrench className={`h-4 w-4 mr-2 ${isFixing ? 'animate-spin' : ''}`} />
