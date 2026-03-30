@@ -357,9 +357,9 @@ ${companyLogoZPL}
 
     try {
       const newPallet = await createPallet.mutateAsync({
-        customer: sessionData.customer,
-        po_number: sessionData.PO,
-        max_capacity: palletCapacity
+        pallet_number: `${sessionData.customer}-${sessionData.PO}`,
+        po: sessionData.PO,
+        sku: sessionData.SKU,
       });
       
       setSelectedPalletId(newPallet.id);
