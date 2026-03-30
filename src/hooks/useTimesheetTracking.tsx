@@ -79,7 +79,7 @@ export function useTimesheetTracking() {
             operator_code
           )
         `)
-        .order('work_date', { ascending: false })
+        .order('created_at', { ascending: false })
         .limit(500); // Limit to prevent excessive data
 
       if (error) throw error;
