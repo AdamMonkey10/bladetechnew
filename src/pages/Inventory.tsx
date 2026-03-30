@@ -59,7 +59,7 @@ export default function Inventory() {
         item.invoice || '',
         item.pallet_number || '',
         item.sku || '',
-        item.suppliers?.name || '',
+        item.supplier || '',
         item.received_date ? format(new Date(item.received_date), 'yyyy-MM-dd') : '',
         item.quantity_received || '',
         item.good_status ? 'Active' : 'Complete',
