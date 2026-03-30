@@ -52,14 +52,10 @@ export function useLabelSessions() {
       // Then load from database
       const { data, error } = await supabase
         .from('label_printing_sessions')
-        .select(`
-          *,
-          machines!fk_laser_machine(machine_name, machine_code),
-          customer_pos!fk_customer_po(customer_name, po_number),
-          operators!fk_operator(operator_name)
-        `)
+        .select('*')
         .eq('user_id', user.id)
-        .eq('session_date', new Date().toISOString().split('T')[0]);
+        .order('created_at', { ascending: false })
+        .limit(10);
 
       if (error) throw error;
 
