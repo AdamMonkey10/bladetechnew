@@ -40,18 +40,18 @@ export const useDataQuality = () => {
       const { data, error } = await supabase.rpc('fix_missing_hours');
       if (error) throw error;
       
-      setCorrections(data || []);
+      const fixedCount = typeof data === 'number' ? data : 0;
       
       toast({
         title: "Data corrections applied",
-        description: `Fixed ${data?.length || 0} records with missing hours`,
+        description: `Fixed ${fixedCount} records with missing hours`,
         variant: "default",
       });
 
       // Refresh metrics after correction
       await getDataQualityMetrics();
       
-      return data || [];
+      return fixedCount;
     } catch (error: any) {
       toast({
         title: "Error applying corrections",
