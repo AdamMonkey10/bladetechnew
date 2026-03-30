@@ -5,16 +5,13 @@ import { useToast } from '@/hooks/use-toast';
 export interface Pallet {
   id: string;
   pallet_number: string;
-  customer: string;
-  po_number: string;
-  status: 'active' | 'completed' | 'shipped';
-  max_capacity: number;
-  current_count: number;
-  total_quantity: number;
+  po?: string | null;
+  sku?: string | null;
+  status?: string | null;
+  notes?: string | null;
   created_at: string;
   updated_at: string;
-  created_by: string;
-  completed_at: string | null;
+  user_id?: string | null;
 }
 
 export interface PalletAssignment {
