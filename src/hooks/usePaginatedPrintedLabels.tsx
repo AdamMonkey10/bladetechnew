@@ -39,7 +39,7 @@ export function usePaginatedPrintedLabels(
         countQuery = countQuery.gte('date_printed', format(dateFrom, 'yyyy-MM-dd'));
       }
       if (dateTo) {
-        countQuery = countQuery.lte('print_date', format(dateTo, 'yyyy-MM-dd'));
+        countQuery = countQuery.lte('date_printed', format(dateTo, 'yyyy-MM-dd'));
       }
 
       const { count, error: countError } = await countQuery;
