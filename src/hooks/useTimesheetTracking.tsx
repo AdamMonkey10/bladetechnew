@@ -148,16 +148,15 @@ export function useTimesheetTracking() {
         .select(`
           operator_id,
           escalation_level,
-          work_date,
           days_overdue,
           timesheet_submitted,
+          week_number,
+          year,
           operators (
             operator_name,
             operator_code
           )
-        `)
-        .gte('work_date', startDateStr)
-        .lte('work_date', endDateStr);
+        `);
 
       if (error) throw error;
 
