@@ -148,9 +148,9 @@ export function usePrintedLabelsByOperatorDate(operatorName?: string, date?: str
       // Optimize query - select only needed columns
       const { data, error } = await supabase
         .from('printed_labels')
-        .select('id, customer, po, sku, quantity, laser, print_date, invoice, created_at')
-        .eq('operator', operatorName)
-        .eq('print_date', date)
+        .select('id, po, sku, quantity, date_printed, invoice, created_at')
+        .eq('user_id', operatorName || '')
+        .eq('date_printed', date || '')
         .order('created_at', { ascending: false });
 
       if (error) {
