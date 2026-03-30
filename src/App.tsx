@@ -42,6 +42,7 @@ import TimesheetManagement from "./pages/TimesheetManagement";
 import TimesheetReports from "./pages/TimesheetReports";
 import WeeklyBreakdownPage from "./pages/WeeklyBreakdown";
 import ProductionCharts from "./pages/ProductionCharts";
+import DeviceManagement from "./pages/DeviceManagement";
 
 // Lazy import warehouse module if enabled
 import { isWarehouseEnabled, registerWarehouseRoute } from './features/warehouse';
