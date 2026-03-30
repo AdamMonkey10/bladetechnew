@@ -46,8 +46,8 @@ export function usePrinterSettings() {
         // Row exists - use it
         setSettingsId(data.id);
         setPrinterSettings({
-          IP: data.ip_address,
-          Port: data.port,
+          IP: data.printer_ip,
+          Port: data.printer_port,
           labelWidth: data.label_width_mm ?? DEFAULT_LABEL_SIZE.widthMm,
           labelHeight: data.label_height_mm ?? DEFAULT_LABEL_SIZE.heightMm,
         });
