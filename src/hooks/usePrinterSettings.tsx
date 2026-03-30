@@ -57,12 +57,12 @@ export function usePrinterSettings() {
           .from('printer_settings')
           .insert({
             user_id: user.id,
-            ip_address: '10.0.0.14',
-            port: 443,
+            printer_ip: '10.0.0.14',
+            printer_port: 443,
             label_width_mm: DEFAULT_LABEL_SIZE.widthMm,
             label_height_mm: DEFAULT_LABEL_SIZE.heightMm,
           })
-          .select('id, ip_address, port, label_width_mm, label_height_mm')
+          .select('id, printer_ip, printer_port, label_width_mm, label_height_mm')
           .single();
 
         if (insertError) {
