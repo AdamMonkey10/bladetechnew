@@ -14,7 +14,7 @@ export const useOptimizedCustomerPOs = (enabled = true) => {
         const { data, error } = await supabase
           .from('customer_pos')
           .select('id, po_number, customer_name, status, delivery_date, items, progress_percentage')
-          .eq('status', false) // Only open POs
+          .neq('status', 'completed') // Only open POs
           .order('po_date', { ascending: false })
           .limit(100);
 
