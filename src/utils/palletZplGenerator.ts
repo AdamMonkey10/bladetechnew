@@ -28,8 +28,8 @@ export const generatePalletZPL = (data: PalletLabelData, labelSize?: LabelDimens
   const scale = getScaleFactor(dimensions);
   
   // Calculate totals
-  const totalBoxes = pallet.current_count;
-  const totalUnits = pallet.total_quantity;
+  const totalBoxes = labels.reduce((sum, l) => sum + l.boxes, 0);
+  const totalUnits = labels.reduce((sum, l) => sum + l.quantity, 0);
   
   // Calculate font sizes based on scale
   const customerFontSize = scaleFontSize(48, dimensions);
