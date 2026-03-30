@@ -1,13 +1,1 @@
-project_id = "bujljvgiskdxzahztybs"
-
-[functions.analyze-weekly-breakdown]
-verify_jwt = true
-
-[functions.export-firebase-shifts]
-verify_jwt = false
-
-[functions.clockfy-webhook]
-verify_jwt = false
-
-[functions.customer-api]
-verify_jwt = false
+project_id = "ktplhiqbindsmkzykqvh"
