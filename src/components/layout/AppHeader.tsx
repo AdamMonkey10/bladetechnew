@@ -279,6 +279,16 @@ export function AppHeader() {
               Webhook Tester
             </Link>
             <Link
+              to="/backups"
+              className={cn(
+                "block px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground",
+                location.pathname === "/backups" && "bg-accent text-accent-foreground"
+              )}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Backups
+            </Link>
+            <Link
               to="/settings"
               className={cn(
                 "block px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground",

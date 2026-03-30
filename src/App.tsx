@@ -106,6 +106,7 @@ const App = () => (
               <Route path="/production-charts" element={<ProductionCharts />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/device-management" element={<DeviceManagement />} />
+              <Route path="/backups" element={<Backups />} />
               {/* Conditionally register warehouse route */}
               {isWarehouseEnabled() && <Route {...registerWarehouseRoute()} />}
             </Route>

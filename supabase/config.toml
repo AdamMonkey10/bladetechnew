@@ -11,3 +11,9 @@ verify_jwt = false
 
 [functions.customer-api]
 verify_jwt = false
+
+[functions.database-backup]
+verify_jwt = false
+
+[functions.backup-restore]
+verify_jwt = false
