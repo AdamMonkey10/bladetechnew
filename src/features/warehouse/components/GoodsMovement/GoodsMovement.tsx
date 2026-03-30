@@ -29,12 +29,14 @@ interface WarehouseMovement {
   id: string;
   movement_type: 'IN' | 'OUT' | 'TRANSFER';
   product_id: string;
-  from_slot_code?: string;
-  to_slot_code?: string;
+  from_location_id?: string;
+  to_location_id?: string;
   quantity: number;
   created_at: string;
   notes?: string;
-  performed_by: string; // Changed from user_id to match actual database schema
+  user_id?: string;
+  weight_kg?: number;
+  warehouse_products?: any;
 }
 
 interface WarehouseStockLevel {

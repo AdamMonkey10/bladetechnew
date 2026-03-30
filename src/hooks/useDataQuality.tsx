@@ -4,23 +4,16 @@ import { useToast } from '@/hooks/use-toast';
 
 interface DataQualityMetrics {
   total_records: number;
-  records_with_corrections: number;
-  correction_percentage: number;
-  activities_corrected: any;
-}
-
-interface CorrectionRecord {
-  record_id: string;
-  activity_type: string;
-  units_produced: number;
-  original_hours: number;
-  estimated_hours: number;
-  corrected: boolean;
+  records_with_hours: number;
+  records_without_hours: number;
+  records_with_sku: number;
+  records_without_sku: number;
+  avg_hours: number;
+  data_completeness: number;
 }
 
 export const useDataQuality = () => {
   const [isFixing, setIsFixing] = useState(false);
-  const [corrections, setCorrections] = useState<CorrectionRecord[]>([]);
   const [metrics, setMetrics] = useState<DataQualityMetrics | null>(null);
   const { toast } = useToast();
 
@@ -46,18 +39,18 @@ export const useDataQuality = () => {
       const { data, error } = await supabase.rpc('fix_missing_hours');
       if (error) throw error;
       
-      setCorrections(data || []);
+      const fixedCount = typeof data === 'number' ? data : 0;
       
       toast({
         title: "Data corrections applied",
-        description: `Fixed ${data?.length || 0} records with missing hours`,
+        description: `Fixed ${fixedCount} records with missing hours`,
         variant: "default",
       });
 
       // Refresh metrics after correction
       await getDataQualityMetrics();
       
-      return data || [];
+      return fixedCount;
     } catch (error: any) {
       toast({
         title: "Error applying corrections",
@@ -72,7 +65,7 @@ export const useDataQuality = () => {
 
   return {
     isFixing,
-    corrections,
+    corrections: [] as any[],
     metrics,
     fixMissingHours,
     getDataQualityMetrics,

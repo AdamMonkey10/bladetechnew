@@ -6,36 +6,41 @@ import { getBatchCacheDuration, localStorageCache } from '@/utils/cacheUtils';
 export interface PrintedLabel {
   id: string;
   document_id?: string;
-  customer: string;
-  po: string;
+  customer?: string;
+  po?: string | null;
   sku: string;
-  operator: string;
-  laser: string;
-  invoice?: string;
-  quantity: number;
+  operator?: string;
+  laser?: string;
+  invoice?: string | null;
+  quantity?: number | null;
   pallet_name?: string;
-  print_date: string;
-  box_number?: string;
-  line_item_index?: number;
+  print_date?: string;
+  date_printed?: string | null;
+  box_number?: string | number | null;
+  line_item_index?: number | null;
+  line_number?: number | null;
   created_at: string;
-  user_id: string;
-  updated_at: string;
+  user_id?: string | null;
+  session_id?: string | null;
+  goods_received_id?: string | null;
+  updated_at?: string;
 }
 
 export interface PrintedLabelInsert {
-  document_id?: string;
-  customer: string;
-  po: string;
   sku: string;
-  operator: string;
-  laser: string;
+  po?: string;
   invoice?: string;
-  quantity: number;
-  pallet_name?: string;
-  print_date: string;
-  box_number?: string;
+  quantity?: number;
+  date_printed?: string;
+  box_number?: string | number;
   line_item_index?: number;
-  user_id: string;
+  user_id?: string;
+  customer?: string;
+  operator?: string;
+  laser?: string;
+  print_date?: string;
+  document_id?: string;
+  pallet_name?: string;
 }
 
 export function usePrintedLabels(dateFrom?: Date, dateTo?: Date, limit = 100, offset = 0) {
@@ -53,22 +58,22 @@ export function usePrintedLabels(dateFrom?: Date, dateTo?: Date, limit = 100, of
       // Optimize query - select only essential columns for listings
       let query = supabase
         .from('printed_labels')
-        .select('id, customer, po, sku, operator, laser, quantity, print_date, box_number, created_at')
-        .order('print_date', { ascending: false })
+        .select('id, po, sku, quantity, date_printed, box_number, created_at, invoice')
+        .order('date_printed', { ascending: false })
         .order('created_at', { ascending: false })
         .range(offset, offset + limit - 1);
 
       if (dateFrom) {
-        query = query.gte('print_date', format(dateFrom, 'yyyy-MM-dd'));
+        query = query.gte('date_printed', format(dateFrom, 'yyyy-MM-dd'));
       }
       if (dateTo) {
-        query = query.lte('print_date', format(dateTo, 'yyyy-MM-dd'));
+        query = query.lte('date_printed', format(dateTo, 'yyyy-MM-dd'));
       }
 
       const { data, error } = await query;
       if (error) throw error;
       
-      const result = data as PrintedLabel[];
+      const result = (data || []) as unknown as PrintedLabel[];
       
       // Cache ancient data in localStorage with extended duration
       if (localStorageCache.shouldUseLocalStorage(result || [])) {
@@ -126,7 +131,7 @@ export function useInsertPrintedLabel() {
     mutationFn: async (label: PrintedLabelInsert) => {
       const { data, error } = await supabase
         .from('printed_labels')
-        .insert([label])
+        .insert([label as any])
         .select()
         .single();
 
@@ -156,9 +161,9 @@ export function usePrintedLabelsByOperatorDate(operatorName?: string, date?: str
       // Optimize query - select only needed columns
       const { data, error } = await supabase
         .from('printed_labels')
-        .select('id, customer, po, sku, quantity, laser, print_date, invoice, created_at')
-        .eq('operator', operatorName)
-        .eq('print_date', date)
+        .select('id, po, sku, quantity, date_printed, invoice, created_at')
+        .eq('user_id', operatorName || '')
+        .eq('date_printed', date || '')
         .order('created_at', { ascending: false });
 
       if (error) {
@@ -167,7 +172,7 @@ export function usePrintedLabelsByOperatorDate(operatorName?: string, date?: str
       }
       
       console.log(`Found ${data?.length || 0} printed labels for operator ${operatorName} on ${date}:`, data);
-      return data as PrintedLabel[];
+      return (data || []) as unknown as PrintedLabel[];
     },
     enabled: !!operatorName && !!date,
     ...getBatchCacheDuration([], { 
@@ -184,7 +189,7 @@ export function useImportPrintedLabels() {
     mutationFn: async (labels: PrintedLabelInsert[]) => {
       const { data, error } = await supabase
         .from('printed_labels')
-        .insert(labels)
+        .insert(labels as any[])
         .select();
 
       if (error) throw error;

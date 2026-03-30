@@ -55,6 +55,7 @@ export function CustomerManagement() {
 
       const customerData = {
         ...formData,
+        name: formData.customer_name || '',
         logo_url: logoUrl
       };
 

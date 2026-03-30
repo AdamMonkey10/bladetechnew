@@ -163,26 +163,24 @@ export const useOptimizedAnalytics = (filters?: AnalyticsFilters) => {
         });
 
         // Overall stats
-        const totalUnits = summaryData.reduce((sum, row) => sum + row.total_units, 0);
-        const totalTime = summaryData.reduce((sum, row) => sum + row.total_time, 0);
-        const totalScrap = summaryData.reduce((sum, row) => sum + row.total_scrap, 0);
+        const totalUnits = summaryData.reduce((sum, row) => sum + ((row as any).total_units || row.boxes_produced || 0), 0);
+        const totalTime = summaryData.reduce((sum, row) => sum + ((row as any).total_time || row.total_hours || 0), 0);
+        const totalScrap = summaryData.reduce((sum, row) => sum + ((row as any).total_scrap || 0), 0);
 
         return {
           operatorPerformance,
           machinePerformance: [], // Simplified for now
           activitySummary,
           overallStats: {
-            totalShifts: summaryData.reduce((sum, row) => sum + row.total_shifts, 0),
+            totalShifts: summaryData.reduce((sum, row) => sum + ((row as any).total_shifts || 1), 0),
             totalUnits,
             totalScrap,
             avgEfficiency: totalTime > 0 ? totalUnits / totalTime : 0,
             avgScrapRate: totalUnits > 0 ? (totalScrap / totalUnits) * 100 : 0,
             laserStats: {
-              avgEfficiency: summaryData.reduce((sum, row) => sum + row.laser_time, 0) > 0 
-                ? summaryData.reduce((sum, row) => sum + row.laser_units, 0) / summaryData.reduce((sum, row) => sum + row.laser_time, 0)
-                : 0,
-              totalUnits: summaryData.reduce((sum, row) => sum + row.laser_units, 0),
-              operators: new Set(summaryData.map(row => row.operator_code)).size,
+              avgEfficiency: 0,
+              totalUnits: summaryData.reduce((sum, row) => sum + ((row as any).laser_units || 0), 0),
+              operators: new Set(summaryData.map(row => (row as any).operator_code || row.operator_name)).size,
             },
           },
           trends: {},

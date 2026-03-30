@@ -32,7 +32,7 @@ export default function Inventory() {
       const matchesSearch = 
         item.invoice?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.sku?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.suppliers?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.supplier?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.pallet_number?.toString().includes(searchTerm);
 
       const matchesStatus = statusFilter === 'all' || 
@@ -59,7 +59,7 @@ export default function Inventory() {
         item.invoice || '',
         item.pallet_number || '',
         item.sku || '',
-        item.suppliers?.name || '',
+        item.supplier || '',
         item.received_date ? format(new Date(item.received_date), 'yyyy-MM-dd') : '',
         item.quantity_received || '',
         item.good_status ? 'Active' : 'Complete',
@@ -158,7 +158,7 @@ export default function Inventory() {
                       <TableCell className="font-medium">{item.invoice || 'N/A'}</TableCell>
                       <TableCell>{item.pallet_number || 'N/A'}</TableCell>
                       <TableCell>{item.sku || 'N/A'}</TableCell>
-                      <TableCell>{item.suppliers?.name || 'N/A'}</TableCell>
+                      <TableCell>{item.supplier || 'N/A'}</TableCell>
                       <TableCell>
                         {item.received_date ? format(new Date(item.received_date), 'dd/MM/yyyy') : 'N/A'}
                       </TableCell>

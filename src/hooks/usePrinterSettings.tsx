@@ -33,7 +33,7 @@ export function usePrinterSettings() {
       // Fetch the user's settings row (unique per user now)
       const { data, error } = await supabase
         .from('printer_settings')
-        .select('id, ip_address, port, label_width_mm, label_height_mm')
+        .select('id, printer_ip, printer_port, label_width_mm, label_height_mm')
         .eq('user_id', user.id)
         .maybeSingle();
 
@@ -46,8 +46,8 @@ export function usePrinterSettings() {
         // Row exists - use it
         setSettingsId(data.id);
         setPrinterSettings({
-          IP: data.ip_address,
-          Port: data.port,
+          IP: data.printer_ip,
+          Port: data.printer_port,
           labelWidth: data.label_width_mm ?? DEFAULT_LABEL_SIZE.widthMm,
           labelHeight: data.label_height_mm ?? DEFAULT_LABEL_SIZE.heightMm,
         });
@@ -57,12 +57,12 @@ export function usePrinterSettings() {
           .from('printer_settings')
           .insert({
             user_id: user.id,
-            ip_address: '10.0.0.14',
-            port: 443,
+            printer_ip: '10.0.0.14',
+            printer_port: 443,
             label_width_mm: DEFAULT_LABEL_SIZE.widthMm,
             label_height_mm: DEFAULT_LABEL_SIZE.heightMm,
           })
-          .select('id, ip_address, port, label_width_mm, label_height_mm')
+          .select('id, printer_ip, printer_port, label_width_mm, label_height_mm')
           .single();
 
         if (insertError) {
@@ -73,8 +73,8 @@ export function usePrinterSettings() {
         if (newRow) {
           setSettingsId(newRow.id);
           setPrinterSettings({
-            IP: newRow.ip_address,
-            Port: newRow.port,
+            IP: newRow.printer_ip,
+            Port: newRow.printer_port,
             labelWidth: newRow.label_width_mm ?? DEFAULT_LABEL_SIZE.widthMm,
             labelHeight: newRow.label_height_mm ?? DEFAULT_LABEL_SIZE.heightMm,
           });
@@ -115,11 +115,11 @@ export function usePrinterSettings() {
       const { error } = await supabase
         .from('printer_settings')
         .update({
-          ip_address: newSettings.IP,
-          port: newSettings.Port,
+          printer_ip: newSettings.IP,
+          printer_port: newSettings.Port,
           label_width_mm: newSettings.labelWidth,
           label_height_mm: newSettings.labelHeight,
-        })
+        } as any)
         .eq('id', settingsId);
 
       if (error) throw error;

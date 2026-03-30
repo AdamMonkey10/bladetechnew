@@ -36,10 +36,10 @@ export function usePaginatedPrintedLabels(
         .select('*', { count: 'exact', head: true });
 
       if (dateFrom) {
-        countQuery = countQuery.gte('print_date', format(dateFrom, 'yyyy-MM-dd'));
+        countQuery = countQuery.gte('date_printed', format(dateFrom, 'yyyy-MM-dd'));
       }
       if (dateTo) {
-        countQuery = countQuery.lte('print_date', format(dateTo, 'yyyy-MM-dd'));
+        countQuery = countQuery.lte('date_printed', format(dateTo, 'yyyy-MM-dd'));
       }
 
       const { count, error: countError } = await countQuery;
@@ -48,23 +48,23 @@ export function usePaginatedPrintedLabels(
       // Get paginated data with optimized columns
       let dataQuery = supabase
         .from('printed_labels')
-        .select('id, customer, po, sku, operator, laser, quantity, print_date, box_number, created_at, invoice')
-        .order('print_date', { ascending: false })
+        .select('id, po, sku, quantity, date_printed, box_number, created_at, invoice')
+        .order('date_printed', { ascending: false })
         .order('created_at', { ascending: false })
         .range(offset, offset + pageSize - 1);
 
       if (dateFrom) {
-        dataQuery = dataQuery.gte('print_date', format(dateFrom, 'yyyy-MM-dd'));
+        dataQuery = dataQuery.gte('date_printed', format(dateFrom, 'yyyy-MM-dd'));
       }
       if (dateTo) {
-        dataQuery = dataQuery.lte('print_date', format(dateTo, 'yyyy-MM-dd'));
+        dataQuery = dataQuery.lte('date_printed', format(dateTo, 'yyyy-MM-dd'));
       }
 
       const { data, error } = await dataQuery;
       if (error) throw error;
 
       const result: PaginatedResult<PrintedLabel> = {
-        data: data as PrintedLabel[],
+        data: (data || []) as unknown as PrintedLabel[],
         count: count || 0,
         hasMore: (offset + pageSize) < (count || 0),
         nextOffset: (offset + pageSize) < (count || 0) ? offset + pageSize : undefined,

@@ -357,9 +357,9 @@ ${companyLogoZPL}
 
     try {
       const newPallet = await createPallet.mutateAsync({
-        customer: sessionData.customer,
-        po_number: sessionData.PO,
-        max_capacity: palletCapacity
+        pallet_number: `${sessionData.customer}-${sessionData.PO}`,
+        po: sessionData.PO,
+        sku: sessionData.SKU,
       });
       
       setSelectedPalletId(newPallet.id);
@@ -851,7 +851,7 @@ ${companyLogoZPL}
                     <div className="flex flex-col">
                       <span className="font-medium">{pallet.pallet_number}</span>
                       <span className="text-xs text-muted-foreground">
-                        {pallet.current_count}/{pallet.max_capacity} boxes
+                        {pallet.pallet_number}
                       </span>
                     </div>
                   </SelectItem>

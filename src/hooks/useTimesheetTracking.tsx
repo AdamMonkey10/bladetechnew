@@ -3,15 +3,24 @@ import { supabase } from '@/integrations/supabase/client';
 
 export interface TimesheetTrackingRecord {
   id: string;
-  operator_id: string;
-  work_date: string;
-  clockfy_events_exist: boolean;
-  timesheet_submitted: boolean;
-  timesheet_submitted_at: string | null;
-  days_overdue: number;
-  escalation_level: 'none' | 'late' | 'critical';
+  operator_id: string | null;
+  operator_name?: string | null;
+  work_date?: string;
+  week_number: number;
+  year: number;
+  actual_shifts?: number | null;
+  expected_shifts?: number | null;
+  missing_shifts?: number | null;
+  compliance_rate?: number | null;
+  status?: string | null;
+  timesheet_submitted?: boolean;
+  timesheet_submitted_at?: string | null;
+  days_overdue?: number;
+  escalation_level?: string;
+  clockfy_events_exist?: boolean;
   created_at: string;
-  updated_at: string;
+  updated_at?: string;
+  last_updated?: string | null;
   operators?: {
     operator_name: string;
     operator_code: string;
@@ -56,7 +65,7 @@ export function useTimesheetTracking() {
         .order('days_overdue', { ascending: false });
 
       if (error) throw error;
-      setOverdueRecords((data || []) as TimesheetTrackingRecord[]);
+      setOverdueRecords((data || []) as unknown as TimesheetTrackingRecord[]);
     } catch (error) {
       console.error('Error fetching overdue records:', error);
     }
@@ -73,7 +82,7 @@ export function useTimesheetTracking() {
             operator_code
           )
         `)
-        .order('work_date', { ascending: false })
+        .order('created_at', { ascending: false })
         .limit(500); // Limit to prevent excessive data
 
       if (error) throw error;
@@ -89,9 +98,10 @@ export function useTimesheetTracking() {
       const workDates = new Set<string>();
       
       data.forEach(record => {
-        uniqueKeys.add(`${record.operator_id}_${record.work_date}`);
-        operatorIds.add(record.operator_id);
-        workDates.add(record.work_date);
+        const workDate = record.last_updated || record.created_at;
+        uniqueKeys.add(`${record.operator_id}_${workDate}`);
+        if (record.operator_id) operatorIds.add(record.operator_id);
+        if (workDate) workDates.add(workDate.split('T')[0]);
       });
 
       // Batch fetch all relevant shift records in a single query
@@ -110,7 +120,8 @@ export function useTimesheetTracking() {
 
       // Match shift records to timesheet tracking records
       const recordsWithShiftData = data.map(record => {
-        const key = `${record.operator_id}_${record.work_date}`;
+        const workDate = (record.last_updated || record.created_at || '').split('T')[0];
+        const key = `${record.operator_id}_${workDate}`;
         const shiftData = shiftRecordMap.get(key);
         return {
           ...record,
@@ -118,7 +129,7 @@ export function useTimesheetTracking() {
         };
       });
 
-      setAllRecords(recordsWithShiftData as TimesheetTrackingRecord[]);
+      setAllRecords(recordsWithShiftData as unknown as TimesheetTrackingRecord[]);
     } catch (error) {
       console.error('Error fetching all records:', error);
     }
@@ -140,16 +151,15 @@ export function useTimesheetTracking() {
         .select(`
           operator_id,
           escalation_level,
-          work_date,
           days_overdue,
           timesheet_submitted,
+          week_number,
+          year,
           operators (
             operator_name,
             operator_code
           )
-        `)
-        .gte('work_date', startDateStr)
-        .lte('work_date', endDateStr);
+        `);
 
       if (error) throw error;
 
@@ -157,7 +167,7 @@ export function useTimesheetTracking() {
       const statsMap = new Map<string, OperatorComplianceStats>();
       
       allTrackingData?.forEach(record => {
-        const operatorId = record.operator_id;
+        const operatorId = record.operator_id || '';
         const existing = statsMap.get(operatorId);
         
         if (!existing) {
@@ -165,30 +175,26 @@ export function useTimesheetTracking() {
             operator_id: operatorId,
             operator_name: record.operators?.operator_name || 'Unknown',
             operator_code: record.operators?.operator_code || 'Unknown',
-            total_overdue: record.timesheet_submitted ? 0 : (record.days_overdue > 0 ? 1 : 0),
-            highest_escalation: record.escalation_level as 'none' | 'late' | 'critical',
-            oldest_overdue_date: record.timesheet_submitted ? null : record.work_date,
+            total_overdue: record.timesheet_submitted ? 0 : ((record.days_overdue || 0) > 0 ? 1 : 0),
+            highest_escalation: (record.escalation_level || 'none') as 'none' | 'late' | 'critical',
+            oldest_overdue_date: null,
             critical_count: record.escalation_level === 'critical' && !record.timesheet_submitted ? 1 : 0,
             late_count: record.escalation_level === 'late' && !record.timesheet_submitted ? 1 : 0,
-            is_compliant: record.timesheet_submitted || record.days_overdue === 0,
+            is_compliant: record.timesheet_submitted || (record.days_overdue || 0) === 0,
             total_tracking_records: 1
           });
         } else {
           existing.total_tracking_records += 1;
           
-          if (!record.timesheet_submitted && record.days_overdue > 0) {
+          if (!record.timesheet_submitted && (record.days_overdue || 0) > 0) {
             existing.total_overdue += 1;
             
             // Update highest escalation level
             const escalationPriority = { 'none': 0, 'late': 1, 'critical': 2 };
-            if (escalationPriority[record.escalation_level as keyof typeof escalationPriority] > escalationPriority[existing.highest_escalation]) {
-              existing.highest_escalation = record.escalation_level as 'none' | 'late' | 'critical';
+            if (escalationPriority[(record.escalation_level || 'none') as keyof typeof escalationPriority] > escalationPriority[existing.highest_escalation]) {
+              existing.highest_escalation = (record.escalation_level || 'none') as 'none' | 'late' | 'critical';
             }
             
-            // Update oldest date
-            if (!existing.oldest_overdue_date || record.work_date < existing.oldest_overdue_date) {
-              existing.oldest_overdue_date = record.work_date;
-            }
             
             // Update counts
             if (record.escalation_level === 'critical') existing.critical_count += 1;
@@ -217,7 +223,7 @@ export function useTimesheetTracking() {
           escalation_level: 'none'
         })
         .eq('operator_id', operatorId)
-        .eq('work_date', workDate);
+        .eq('week_number', parseInt(workDate) || 0);
 
       if (error) throw error;
       
@@ -265,8 +271,8 @@ export function useTimesheetTracking() {
       
       for (const tracking of trackingData || []) {
         // Format dates with UTC timezone markers for proper comparison
-        const startOfDay = `${tracking.work_date}T00:00:00Z`;
-        const endOfDay = `${tracking.work_date}T23:59:59Z`;
+        const startOfDay = `${tracking.created_at?.split('T')[0] || ''}T00:00:00Z`;
+        const endOfDay = `${tracking.created_at?.split('T')[0] || ''}T23:59:59Z`;
         
         const { data: timeEvents, error: timeError } = await supabase
           .from('clockfy_time_events')
@@ -291,7 +297,7 @@ export function useTimesheetTracking() {
             : timeEvent.total_hours || 0;
 
           missingTimesheets.push({
-            work_date: tracking.work_date,
+            work_date: tracking.created_at?.split('T')[0] || '',
             clock_in: timeEvent.clock_in,
             clock_out: timeEvent.clock_out,
             hours_worked: hoursWorked,

@@ -4,31 +4,29 @@ import { useToast } from '@/hooks/use-toast';
 
 export interface Customer {
   id: string;
-  customer_name: string;
-  template_name: string;
+  name: string;
+  customer_name?: string;
+  template_name?: string;
   logo_url?: string;
-  logo_position: {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-  };
+  logo_position?: any;
   zpl_code?: string;
-  is_active: boolean;
+  is_active?: boolean;
+  active?: boolean;
+  code?: string;
+  address?: string;
+  contact_email?: string;
+  contact_phone?: string;
+  notes?: string;
   created_at: string;
   updated_at: string;
 }
 
 export interface CreateCustomerData {
-  customer_name: string;
-  template_name: string;
+  name: string;
+  customer_name?: string;
+  template_name?: string;
   logo_url?: string;
-  logo_position?: {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-  };
+  logo_position?: any;
   zpl_code?: string;
 }
 
@@ -42,11 +40,11 @@ export function useCustomers() {
       const { data, error } = await supabase
         .from('customers')
         .select('*')
-        .eq('is_active', true)
-        .order('customer_name');
+        .eq('active', true)
+        .order('name');
       
       if (error) throw error;
-      return data as Customer[];
+      return (data || []).map(d => ({ ...d, customer_name: d.customer_name || d.name })) as unknown as Customer[];
     },
   });
 
@@ -54,7 +52,7 @@ export function useCustomers() {
     mutationFn: async (customerData: CreateCustomerData) => {
       const { data, error } = await supabase
         .from('customers')
-        .insert([customerData])
+        .insert([{ name: customerData.name || customerData.customer_name || '', ...customerData } as any])
         .select()
         .single();
       

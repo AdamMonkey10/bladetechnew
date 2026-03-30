@@ -83,11 +83,11 @@ export const useCustomerPOs = () => {
           po_number: po.po_number,
           po_date: po.po_date,
           delivery_date: po.delivery_date,
-          status: po.status,
+          status: String(po.status || 'pending'),
           items: po.items as any,
           notes: po.notes,
           user_id: user.id,
-        })
+        } as any)
         .select()
         .single();
 
@@ -159,7 +159,7 @@ export const useCustomerPOs = () => {
     mutationFn: async (id: string) => {
       const { data, error } = await supabase
         .from('customer_pos')
-        .update({ status: true })
+        .update({ status: 'completed' })
         .eq('id', id)
         .select()
         .single();

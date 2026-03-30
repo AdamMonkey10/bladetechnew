@@ -14,7 +14,7 @@ export const useOptimizedCustomerPOs = (enabled = true) => {
         const { data, error } = await supabase
           .from('customer_pos')
           .select('id, po_number, customer_name, status, delivery_date, items, progress_percentage')
-          .eq('status', false) // Only open POs
+          .neq('status', 'completed') // Only open POs
           .order('po_date', { ascending: false })
           .limit(100);
 
@@ -45,10 +45,10 @@ export const useOptimizedPrintedLabels = (operatorCode?: string, dateRange?: { s
       try {
         let query = supabase
           .from('printed_labels')
-          .select('id, sku, invoice, po, quantity, print_date, operator');
+          .select('id, sku, invoice, po, quantity, date_printed, box_number');
 
         if (operatorCode) {
-          query = query.eq('operator', operatorCode);
+          query = query.eq('user_id', operatorCode);
         }
 
         if (dateRange) {

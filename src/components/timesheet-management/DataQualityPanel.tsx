@@ -38,7 +38,7 @@ export function DataQualityPanel() {
   };
 
   const qualityScore = metrics 
-    ? Math.round(100 - (metrics.correction_percentage || 0))
+    ? Math.round(metrics.data_completeness || 0)
     : 0;
 
   const getQualityBadge = (score: number) => {
@@ -81,11 +81,11 @@ export function DataQualityPanel() {
             <AlertTriangle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-destructive">
-              {metrics?.records_with_corrections || 0}
+             <div className="text-2xl font-bold text-destructive">
+              {metrics?.records_without_hours || 0}
             </div>
             <p className="text-xs text-muted-foreground">
-              {metrics?.correction_percentage?.toFixed(1) || 0}% of total
+              {(100 - (metrics?.data_completeness || 100)).toFixed(1)}% of total
             </p>
           </CardContent>
         </Card>
@@ -122,7 +122,7 @@ export function DataQualityPanel() {
               </Button>
               <Button
                 onClick={handleFixIssues}
-                disabled={isFixing || !metrics?.records_with_corrections}
+                disabled={isFixing || !metrics?.records_without_hours}
                 size="sm"
               >
                 <Wrench className={`h-4 w-4 mr-2 ${isFixing ? 'animate-spin' : ''}`} />
@@ -131,7 +131,7 @@ export function DataQualityPanel() {
             </div>
           </div>
 
-          {metrics?.records_with_corrections === 0 && (
+          {metrics?.records_without_hours === 0 && (
             <Alert>
               <CheckCircle2 className="h-4 w-4" />
               <AlertDescription>

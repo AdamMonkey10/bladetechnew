@@ -24,7 +24,7 @@ export function DataQualityPanel() {
 
   const handleFixData = async () => {
     const results = await fixMissingHours();
-    if (results.length > 0) {
+    if (typeof results === 'number' ? results > 0 : (results as any[])?.length > 0) {
       setShowCorrections(true);
     }
   };
@@ -47,24 +47,24 @@ export function DataQualityPanel() {
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-orange-600">
-                  {metrics.records_with_corrections}
+                  {metrics.records_without_hours}
                 </div>
                 <div className="text-sm text-muted-foreground">Need Correction</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold">
-                  {metrics.correction_percentage.toFixed(1)}%
+                  {(100 - (metrics.data_completeness || 0)).toFixed(1)}%
                 </div>
                 <div className="text-sm text-muted-foreground">Correction Rate</div>
               </div>
             </div>
           )}
 
-          {metrics && metrics.records_with_corrections > 0 ? (
+          {metrics && metrics.records_without_hours > 0 ? (
             <Alert>
               <AlertTriangle className="h-4 w-4" />
               <AlertDescription>
-                Found {metrics.records_with_corrections} records with production data but missing hours. 
+                Found {metrics.records_without_hours} records with production data but missing hours. 
                 These records will have estimated hours calculated based on average productivity rates.
               </AlertDescription>
             </Alert>
@@ -80,7 +80,7 @@ export function DataQualityPanel() {
           <div className="flex gap-2">
             <Button 
               onClick={handleFixData} 
-              disabled={isFixing || (metrics?.records_with_corrections || 0) === 0}
+              disabled={isFixing || (metrics?.records_without_hours || 0) === 0}
               className="flex items-center gap-2"
             >
               {isFixing ? (

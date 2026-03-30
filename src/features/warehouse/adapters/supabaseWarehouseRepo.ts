@@ -21,8 +21,8 @@ export class SupabaseWarehouseRepo implements WarehouseRepo {
       return this.getDefaultLayout();
     }
 
-    // The layout_data contains the aisles
-    const layoutData = data.layout_data as { aisles: any[] } || { aisles: [] };
+    // The config contains the aisles
+    const layoutData = (data.config as any as { aisles: any[] }) || { aisles: [] };
 
     return {
       id: data.id,
@@ -290,16 +290,16 @@ export class SupabaseWarehouseRepo implements WarehouseRepo {
       .from('warehouse_products')
       .select(`
         id,
-        min_qty,
+        min_stock,
         warehouse_slot_inventory!inner(quantity)
       `)
-      .gt('min_qty', 0);
+      .gt('min_stock', 0);
 
     let replenishmentAlerts = 0;
     if (productsNeedingReplenishment) {
-      replenishmentAlerts = productsNeedingReplenishment.filter(product => {
+      replenishmentAlerts = (productsNeedingReplenishment as any[]).filter((product: any) => {
         const totalQty = product.warehouse_slot_inventory?.reduce((sum: number, inv: any) => sum + inv.quantity, 0) || 0;
-        return totalQty < (product.min_qty || 0);
+        return totalQty < (product.min_stock || 0);
       }).length;
     }
 

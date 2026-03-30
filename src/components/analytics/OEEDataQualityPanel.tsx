@@ -25,10 +25,11 @@ export const OEEDataQualityPanel: React.FC<OEEDataQualityPanelProps> = ({ classN
 
   const handleFixMissingData = async () => {
     const result = await fixMissingHours();
-    if (result && result.length > 0) {
+    const count = typeof result === 'number' ? result : Array.isArray(result) ? result.length : 0;
+    if (count > 0) {
       toast({
         title: "Data Fixed",
-        description: `Fixed ${result.length} records with missing hours`,
+        description: `Fixed ${count} records with missing hours`,
       });
     }
   };
@@ -40,7 +41,7 @@ export const OEEDataQualityPanel: React.FC<OEEDataQualityPanelProps> = ({ classN
   const getQualityStatus = () => {
     if (!metrics) return { variant: 'outline' as const, icon: RefreshCw, text: 'Loading...' };
     
-    const correctionRate = metrics.correction_percentage;
+    const correctionRate = 100 - (metrics?.data_completeness || 100);
     if (correctionRate === 0) {
       return { variant: 'default' as const, icon: CheckCircle, text: 'Excellent' };
     } else if (correctionRate < 10) {
@@ -80,18 +81,18 @@ export const OEEDataQualityPanel: React.FC<OEEDataQualityPanelProps> = ({ classN
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold">
-                {metrics.correction_percentage.toFixed(1)}%
+                {(100 - (metrics?.data_completeness || 100)).toFixed(1)}%
               </div>
               <div className="text-sm text-muted-foreground">Need Correction</div>
             </div>
           </div>
         )}
 
-        {metrics && metrics.correction_percentage > 0 && (
+        {metrics && (100 - (metrics.data_completeness || 100)) > 0 && (
           <Alert>
             <AlertTriangle className="h-4 w-4" />
             <AlertDescription>
-              {metrics.records_with_corrections} records have missing or incomplete data that could affect OEE calculations.
+              {metrics.records_without_hours} records have missing or incomplete data that could affect OEE calculations.
             </AlertDescription>
           </Alert>
         )}
@@ -120,7 +121,7 @@ export const OEEDataQualityPanel: React.FC<OEEDataQualityPanelProps> = ({ classN
             <RefreshCw className="h-4 w-4 mr-2" />
             Refresh
           </Button>
-          {metrics && metrics.correction_percentage > 0 && (
+          {metrics && (100 - (metrics.data_completeness || 100)) > 0 && (
             <Button
               variant="default"
               size="sm"

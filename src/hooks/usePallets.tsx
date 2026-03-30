@@ -5,30 +5,26 @@ import { useToast } from '@/hooks/use-toast';
 export interface Pallet {
   id: string;
   pallet_number: string;
-  customer: string;
-  po_number: string;
-  status: 'active' | 'completed' | 'shipped';
-  max_capacity: number;
-  current_count: number;
-  total_quantity: number;
+  po?: string | null;
+  sku?: string | null;
+  status?: string | null;
+  notes?: string | null;
   created_at: string;
   updated_at: string;
-  created_by: string;
-  completed_at: string | null;
+  user_id?: string | null;
 }
 
 export interface PalletAssignment {
   id: string;
-  pallet_id: string;
-  printed_label_id: string;
+  pallet_id: string | null;
+  printed_label_id: string | null;
   assigned_at: string;
-  assigned_by: string;
 }
 
 export interface CreatePalletData {
-  customer: string;
-  po_number: string;
-  max_capacity?: number;
+  pallet_number: string;
+  po?: string;
+  sku?: string;
 }
 
 export interface AssignLabelToPalletData {
@@ -65,10 +61,10 @@ export function useActivePallets(customer?: string, po_number?: string) {
         .order('created_at', { ascending: false });
 
       if (customer) {
-        query = query.eq('customer', customer);
+        query = query.eq('sku', customer);
       }
       if (po_number) {
-        query = query.eq('po_number', po_number);
+        query = query.eq('po', po_number);
       }
 
       const { data, error } = await query;
@@ -130,10 +126,9 @@ export function useCreatePallet() {
         .from('pallets')
         .insert([{
           pallet_number: palletNumber,
-          customer: data.customer,
-          po_number: data.po_number,
-          max_capacity: data.max_capacity || 48,
-          created_by: (await supabase.auth.getUser()).data.user?.id!
+          po: data.po,
+          sku: data.sku,
+          user_id: (await supabase.auth.getUser()).data.user?.id!
         }])
         .select()
         .single();

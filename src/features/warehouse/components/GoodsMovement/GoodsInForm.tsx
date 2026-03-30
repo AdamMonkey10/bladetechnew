@@ -29,12 +29,11 @@ interface QCApprovedGoods {
   sku: string;
   invoice: string | null;
   quantity_received: number;
-  warehouse_quantity_moved: number;
+  warehouse_quantity_moved?: number;
   pallet_number: number | null;
   reference_number: string | null;
   received_date: string;
-  suppliers: { name: string } | null;
-  raw_materials: { material_name: string } | null;
+  supplier?: string | null;
 }
 
 type StockType = 'qc_approved' | 'other_stock' | 'finished_goods';
@@ -227,7 +226,7 @@ const GoodsInForm: React.FC<GoodsInFormProps> = ({ open, onOpenChange, onSuccess
         if (!selectedGoods) throw new Error('Selected goods not found');
         
         productSku = selectedGoods.sku;
-        productName = selectedGoods.raw_materials?.material_name || selectedGoods.sku;
+        productName = selectedGoods.sku;
       } else {
         productSku = validatedData.sku!;
         productName = validatedData.product_name!;
@@ -500,8 +499,8 @@ const GoodsInForm: React.FC<GoodsInFormProps> = ({ open, onOpenChange, onSuccess
                                   <span className="text-muted-foreground">-</span>
                                 )}
                               </td>
-                              <td className="p-2">{goods.raw_materials?.material_name}</td>
-                              <td className="p-2 text-xs">{goods.suppliers?.name}</td>
+                              <td className="p-2">{goods.sku}</td>
+                              <td className="p-2 text-xs">{goods.supplier}</td>
                               <td className="p-2">
                                 {goods.pallet_number ? (
                                   <Badge variant="secondary" className="font-mono">
