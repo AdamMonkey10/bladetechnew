@@ -183,7 +183,7 @@ export function useTimesheetTracking() {
         } else {
           existing.total_tracking_records += 1;
           
-          if (!record.timesheet_submitted && record.days_overdue > 0) {
+          if (!record.timesheet_submitted && (record.days_overdue || 0) > 0) {
             existing.total_overdue += 1;
             
             // Update highest escalation level
