@@ -158,7 +158,7 @@ export default function Inventory() {
                       <TableCell className="font-medium">{item.invoice || 'N/A'}</TableCell>
                       <TableCell>{item.pallet_number || 'N/A'}</TableCell>
                       <TableCell>{item.sku || 'N/A'}</TableCell>
-                      <TableCell>{item.suppliers?.name || 'N/A'}</TableCell>
+                      <TableCell>{item.supplier || 'N/A'}</TableCell>
                       <TableCell>
                         {item.received_date ? format(new Date(item.received_date), 'dd/MM/yyyy') : 'N/A'}
                       </TableCell>

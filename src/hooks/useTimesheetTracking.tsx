@@ -297,7 +297,7 @@ export function useTimesheetTracking() {
             : timeEvent.total_hours || 0;
 
           missingTimesheets.push({
-            work_date: tracking.work_date,
+            work_date: tracking.created_at?.split('T')[0] || '',
             clock_in: timeEvent.clock_in,
             clock_out: timeEvent.clock_out,
             hours_worked: hoursWorked,

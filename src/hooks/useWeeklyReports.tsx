@@ -84,7 +84,7 @@ export const useReportRecipients = () => {
         throw error;
       }
 
-      return data || [];
+      return (data || []) as unknown as ReportRecipient[];
     },
     staleTime: 5 * 60 * 1000,
   });
