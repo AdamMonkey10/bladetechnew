@@ -7,6 +7,7 @@ import { createOptimizedQueryClient } from "@/utils/queryDeduplication";
 import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { DeviceGate } from "@/components/DeviceGate";
 import { AppHeader } from "@/components/layout/AppHeader";
 import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
