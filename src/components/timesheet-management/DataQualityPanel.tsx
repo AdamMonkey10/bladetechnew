@@ -81,11 +81,11 @@ export function DataQualityPanel() {
             <AlertTriangle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-destructive">
-              {metrics?.records_with_corrections || 0}
+             <div className="text-2xl font-bold text-destructive">
+              {metrics?.records_without_hours || 0}
             </div>
             <p className="text-xs text-muted-foreground">
-              {metrics?.correction_percentage?.toFixed(1) || 0}% of total
+              {(100 - (metrics?.data_completeness || 100)).toFixed(1)}% of total
             </p>
           </CardContent>
         </Card>
