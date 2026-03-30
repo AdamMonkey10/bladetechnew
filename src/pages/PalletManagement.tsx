@@ -142,7 +142,7 @@ export default function PalletManagement() {
       const { supabase } = await import('@/integrations/supabase/client');
       const { error } = await supabase
         .from('pallets')
-        .update({ max_capacity: newCapacity })
+        .update({ notes: `capacity:${newCapacity}` })
         .eq('id', editingPallet.id);
 
       if (error) throw error;
@@ -555,9 +555,9 @@ function CreatePalletForm({ onSubmit, pos }: { onSubmit: (data: CreatePalletData
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit({
-      customer,
-      po_number: poNumber,
-      max_capacity: parseInt(maxCapacity)
+      pallet_number: `PLT-${Date.now()}`,
+      po: poNumber,
+      sku: customer,
     });
   };
 
@@ -799,20 +799,18 @@ function PalletDetailsView({
           <h3 className="font-semibold">Pallet Information</h3>
           <div className="space-y-2 text-sm">
             <p><strong>Number:</strong> {pallet.pallet_number}</p>
-            <p><strong>Customer:</strong> {pallet.customer}</p>
-            <p><strong>PO:</strong> {pallet.po_number}</p>
+            <p><strong>PO:</strong> {pallet.po || 'N/A'}</p>
+            <p><strong>SKU:</strong> {pallet.sku || 'N/A'}</p>
             <p><strong>Status:</strong> {pallet.status}</p>
           </div>
         </div>
         
         <div>
-          <h3 className="font-semibold">Capacity & Content</h3>
+          <h3 className="font-semibold">Details</h3>
           <div className="space-y-2 text-sm">
-            <p><strong>Boxes:</strong> {pallet.current_count} / {pallet.max_capacity}</p>
-            <p><strong>Total Units:</strong> {pallet.total_quantity}</p>
             <p><strong>Created:</strong> {new Date(pallet.created_at).toLocaleDateString()}</p>
-            {pallet.completed_at && (
-              <p><strong>Completed:</strong> {new Date(pallet.completed_at).toLocaleDateString()}</p>
+            {pallet.notes && (
+              <p><strong>Notes:</strong> {pallet.notes}</p>
             )}
           </div>
         </div>

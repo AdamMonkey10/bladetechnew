@@ -52,11 +52,9 @@ const Boxes = () => {
 
   // Filter labels by search term
   const filteredLabels = labels.filter(label =>
-    label.box_number?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    label.customer.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    label.po.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    label.sku.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    label.operator.toLowerCase().includes(searchTerm.toLowerCase())
+    String(label.box_number ?? '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (label.po ?? '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+    label.sku.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handlePreview = (label: PrintedLabel) => {

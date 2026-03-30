@@ -14,11 +14,11 @@ import { formatDateRange, formatDate } from '@/utils/dateUtils';
 
 interface WeeklyReport {
   id: string;
-  week_start_date: string;
-  week_end_date: string;
+  week_start_date?: string;
+  week_end_date?: string;
   report_data: any;
-  generated_at: string;
-  status: string;
+  generated_at?: string;
+  status?: string | null;
 }
 
 interface ReportsHistoryProps {
