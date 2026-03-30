@@ -32,7 +32,7 @@ export default function Inventory() {
       const matchesSearch = 
         item.invoice?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.sku?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.suppliers?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.supplier?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.pallet_number?.toString().includes(searchTerm);
 
       const matchesStatus = statusFilter === 'all' || 
