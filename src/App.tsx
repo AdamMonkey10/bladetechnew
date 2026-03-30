@@ -7,6 +7,7 @@ import { createOptimizedQueryClient } from "@/utils/queryDeduplication";
 import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { DeviceGate } from "@/components/DeviceGate";
 import { AppHeader } from "@/components/layout/AppHeader";
 import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
@@ -41,6 +42,7 @@ import TimesheetManagement from "./pages/TimesheetManagement";
 import TimesheetReports from "./pages/TimesheetReports";
 import WeeklyBreakdownPage from "./pages/WeeklyBreakdown";
 import ProductionCharts from "./pages/ProductionCharts";
+import DeviceManagement from "./pages/DeviceManagement";
 
 // Lazy import warehouse module if enabled
 import { isWarehouseEnabled, registerWarehouseRoute } from './features/warehouse';
@@ -51,10 +53,11 @@ const queryClient = createOptimizedQueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <AuthProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
+      <DeviceGate>
+        <AuthProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
           <Routes>
             <Route path="/auth" element={<Auth />} />
             <Route
@@ -101,13 +104,15 @@ const App = () => (
               <Route path="/weekly-breakdown" element={<WeeklyBreakdownPage />} />
               <Route path="/production-charts" element={<ProductionCharts />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/device-management" element={<DeviceManagement />} />
               {/* Conditionally register warehouse route */}
               {isWarehouseEnabled() && <Route {...registerWarehouseRoute()} />}
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
-      </AuthProvider>
+        </AuthProvider>
+      </DeviceGate>
     </TooltipProvider>
   </QueryClientProvider>
 );
