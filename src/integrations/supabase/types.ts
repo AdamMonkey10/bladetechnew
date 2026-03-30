@@ -550,10 +550,16 @@ export type Database = {
           contact_email: string | null
           contact_phone: string | null
           created_at: string
+          customer_name: string | null
           id: string
+          is_active: boolean | null
+          logo_position: Json | null
+          logo_url: string | null
           name: string
           notes: string | null
+          template_name: string | null
           updated_at: string
+          zpl_code: string | null
         }
         Insert: {
           active?: boolean | null
@@ -562,10 +568,16 @@ export type Database = {
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string
+          customer_name?: string | null
           id?: string
+          is_active?: boolean | null
+          logo_position?: Json | null
+          logo_url?: string | null
           name: string
           notes?: string | null
+          template_name?: string | null
           updated_at?: string
+          zpl_code?: string | null
         }
         Update: {
           active?: boolean | null
@@ -574,10 +586,16 @@ export type Database = {
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string
+          customer_name?: string | null
           id?: string
+          is_active?: boolean | null
+          logo_position?: Json | null
+          logo_url?: string | null
           name?: string
           notes?: string | null
+          template_name?: string | null
           updated_at?: string
+          zpl_code?: string | null
         }
         Relationships: []
       }
@@ -687,6 +705,8 @@ export type Database = {
           supplier: string | null
           tooth_pitch: number | null
           user_id: string | null
+          warehouse_quantity_moved: number | null
+          warehouse_status: string | null
           width: number | null
         }
         Insert: {
@@ -713,6 +733,8 @@ export type Database = {
           supplier?: string | null
           tooth_pitch?: number | null
           user_id?: string | null
+          warehouse_quantity_moved?: number | null
+          warehouse_status?: string | null
           width?: number | null
         }
         Update: {
@@ -739,6 +761,8 @@ export type Database = {
           supplier?: string | null
           tooth_pitch?: number | null
           user_id?: string | null
+          warehouse_quantity_moved?: number | null
+          warehouse_status?: string | null
           width?: number | null
         }
         Relationships: [
@@ -1765,6 +1789,8 @@ export type Database = {
           actual_shifts: number | null
           compliance_rate: number | null
           created_at: string
+          days_overdue: number | null
+          escalation_level: string | null
           expected_shifts: number | null
           id: string
           last_updated: string | null
@@ -1772,6 +1798,8 @@ export type Database = {
           operator_id: string | null
           operator_name: string | null
           status: string | null
+          timesheet_submitted: boolean | null
+          timesheet_submitted_at: string | null
           week_number: number
           year: number
         }
@@ -1779,6 +1807,8 @@ export type Database = {
           actual_shifts?: number | null
           compliance_rate?: number | null
           created_at?: string
+          days_overdue?: number | null
+          escalation_level?: string | null
           expected_shifts?: number | null
           id?: string
           last_updated?: string | null
@@ -1786,6 +1816,8 @@ export type Database = {
           operator_id?: string | null
           operator_name?: string | null
           status?: string | null
+          timesheet_submitted?: boolean | null
+          timesheet_submitted_at?: string | null
           week_number: number
           year: number
         }
@@ -1793,6 +1825,8 @@ export type Database = {
           actual_shifts?: number | null
           compliance_rate?: number | null
           created_at?: string
+          days_overdue?: number | null
+          escalation_level?: string | null
           expected_shifts?: number | null
           id?: string
           last_updated?: string | null
@@ -1800,6 +1834,8 @@ export type Database = {
           operator_id?: string | null
           operator_name?: string | null
           status?: string | null
+          timesheet_submitted?: boolean | null
+          timesheet_submitted_at?: string | null
           week_number?: number
           year?: number
         }
