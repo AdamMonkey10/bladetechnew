@@ -73,8 +73,8 @@ export function usePrinterSettings() {
         if (newRow) {
           setSettingsId(newRow.id);
           setPrinterSettings({
-            IP: newRow.ip_address,
-            Port: newRow.port,
+            IP: newRow.printer_ip,
+            Port: newRow.printer_port,
             labelWidth: newRow.label_width_mm ?? DEFAULT_LABEL_SIZE.widthMm,
             labelHeight: newRow.label_height_mm ?? DEFAULT_LABEL_SIZE.heightMm,
           });
