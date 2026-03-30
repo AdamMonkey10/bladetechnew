@@ -62,7 +62,7 @@ export function useTimesheetTracking() {
         .order('days_overdue', { ascending: false });
 
       if (error) throw error;
-      setOverdueRecords((data || []) as TimesheetTrackingRecord[]);
+      setOverdueRecords((data || []) as unknown as TimesheetTrackingRecord[]);
     } catch (error) {
       console.error('Error fetching overdue records:', error);
     }
