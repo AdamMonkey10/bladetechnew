@@ -123,8 +123,8 @@ const GoodsMovementTable: React.FC<GoodsMovementTableProps> = ({
                 <TableCell className="text-right font-mono">
                   {movement.quantity.toLocaleString()}
                 </TableCell>
-                <TableCell>{movement.from_slot_code || '-'}</TableCell>
-                <TableCell>{movement.to_slot_code || '-'}</TableCell>
+                <TableCell>{movement.from_location_id || '-'}</TableCell>
+                <TableCell>{movement.to_location_id || '-'}</TableCell>
                 {!compact && (
                   <TableCell className="max-w-xs truncate">{movement.notes || '-'}</TableCell>
                 )}

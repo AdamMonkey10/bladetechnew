@@ -851,7 +851,7 @@ ${companyLogoZPL}
                     <div className="flex flex-col">
                       <span className="font-medium">{pallet.pallet_number}</span>
                       <span className="text-xs text-muted-foreground">
-                        {pallet.current_count}/{pallet.max_capacity} boxes
+                        {pallet.pallet_number}
                       </span>
                     </div>
                   </SelectItem>

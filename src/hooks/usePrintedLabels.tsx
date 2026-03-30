@@ -176,7 +176,7 @@ export function useImportPrintedLabels() {
     mutationFn: async (labels: PrintedLabelInsert[]) => {
       const { data, error } = await supabase
         .from('printed_labels')
-        .insert(labels)
+        .insert(labels as any[])
         .select();
 
       if (error) throw error;

@@ -126,10 +126,9 @@ export function useCreatePallet() {
         .from('pallets')
         .insert([{
           pallet_number: palletNumber,
-          customer: data.customer,
-          po_number: data.po_number,
-          max_capacity: data.max_capacity || 48,
-          created_by: (await supabase.auth.getUser()).data.user?.id!
+          po: data.po,
+          sku: data.sku,
+          user_id: (await supabase.auth.getUser()).data.user?.id!
         }])
         .select()
         .single();

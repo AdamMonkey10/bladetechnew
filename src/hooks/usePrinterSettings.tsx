@@ -115,11 +115,11 @@ export function usePrinterSettings() {
       const { error } = await supabase
         .from('printer_settings')
         .update({
-          ip_address: newSettings.IP,
-          port: newSettings.Port,
+          printer_ip: newSettings.IP,
+          printer_port: newSettings.Port,
           label_width_mm: newSettings.labelWidth,
           label_height_mm: newSettings.labelHeight,
-        })
+        } as any)
         .eq('id', settingsId);
 
       if (error) throw error;

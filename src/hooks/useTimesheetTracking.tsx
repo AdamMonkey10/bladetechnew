@@ -220,7 +220,7 @@ export function useTimesheetTracking() {
           escalation_level: 'none'
         })
         .eq('operator_id', operatorId)
-        .eq('work_date', workDate);
+        .eq('week_number', parseInt(workDate) || 0);
 
       if (error) throw error;
       

@@ -48,7 +48,7 @@ export const useOptimizedPrintedLabels = (operatorCode?: string, dateRange?: { s
           .select('id, sku, invoice, po, quantity, date_printed, box_number');
 
         if (operatorCode) {
-          query = query.eq('operator', operatorCode);
+          query = query.eq('user_id', operatorCode);
         }
 
         if (dateRange) {
