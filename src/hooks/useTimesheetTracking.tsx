@@ -164,7 +164,7 @@ export function useTimesheetTracking() {
       const statsMap = new Map<string, OperatorComplianceStats>();
       
       allTrackingData?.forEach(record => {
-        const operatorId = record.operator_id;
+        const operatorId = record.operator_id || '';
         const existing = statsMap.get(operatorId);
         
         if (!existing) {
