@@ -53,7 +53,7 @@ export const useWeeklyReports = () => {
         throw error;
       }
 
-      return data || [];
+      return (data || []) as unknown as WeeklyReport[];
     },
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
