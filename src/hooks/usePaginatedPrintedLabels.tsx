@@ -54,7 +54,7 @@ export function usePaginatedPrintedLabels(
         .range(offset, offset + pageSize - 1);
 
       if (dateFrom) {
-        dataQuery = dataQuery.gte('print_date', format(dateFrom, 'yyyy-MM-dd'));
+        dataQuery = dataQuery.gte('date_printed', format(dateFrom, 'yyyy-MM-dd'));
       }
       if (dateTo) {
         dataQuery = dataQuery.lte('print_date', format(dateTo, 'yyyy-MM-dd'));
