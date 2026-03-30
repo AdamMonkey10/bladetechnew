@@ -4,18 +4,12 @@ import { useToast } from '@/hooks/use-toast';
 
 interface DataQualityMetrics {
   total_records: number;
-  records_with_corrections: number;
-  correction_percentage: number;
-  activities_corrected: any;
-}
-
-interface CorrectionRecord {
-  record_id: string;
-  activity_type: string;
-  units_produced: number;
-  original_hours: number;
-  estimated_hours: number;
-  corrected: boolean;
+  records_with_hours: number;
+  records_without_hours: number;
+  records_with_sku: number;
+  records_without_sku: number;
+  avg_hours: number;
+  data_completeness: number;
 }
 
 export const useDataQuality = () => {
