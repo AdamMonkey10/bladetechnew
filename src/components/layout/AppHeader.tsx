@@ -123,6 +123,11 @@ export function AppHeader() {
                       }
                     })()}
                     <DropdownMenuItem asChild>
+                      <Link to="/backups" className="w-full">
+                        Backups
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
                       <Link to="/settings" className="w-full">
                         Settings
                       </Link>
