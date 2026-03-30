@@ -18,7 +18,7 @@ interface WeeklyReport {
   week_end_date?: string;
   report_data: any;
   generated_at?: string;
-  status: string;
+  status?: string | null;
 }
 
 interface ReportsHistoryProps {
