@@ -48,8 +48,8 @@ export function usePaginatedPrintedLabels(
       // Get paginated data with optimized columns
       let dataQuery = supabase
         .from('printed_labels')
-        .select('id, customer, po, sku, operator, laser, quantity, print_date, box_number, created_at, invoice')
-        .order('print_date', { ascending: false })
+        .select('id, po, sku, quantity, date_printed, box_number, created_at, invoice')
+        .order('date_printed', { ascending: false })
         .order('created_at', { ascending: false })
         .range(offset, offset + pageSize - 1);
 
