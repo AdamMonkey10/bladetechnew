@@ -123,6 +123,11 @@ export function AppHeader() {
                       }
                     })()}
                     <DropdownMenuItem asChild>
+                      <Link to="/backups" className="w-full">
+                        Backups
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
                       <Link to="/settings" className="w-full">
                         Settings
                       </Link>
@@ -272,6 +277,16 @@ export function AppHeader() {
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Webhook Tester
+            </Link>
+            <Link
+              to="/backups"
+              className={cn(
+                "block px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground",
+                location.pathname === "/backups" && "bg-accent text-accent-foreground"
+              )}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Backups
             </Link>
             <Link
               to="/settings"

@@ -43,6 +43,7 @@ import TimesheetReports from "./pages/TimesheetReports";
 import WeeklyBreakdownPage from "./pages/WeeklyBreakdown";
 import ProductionCharts from "./pages/ProductionCharts";
 import DeviceManagement from "./pages/DeviceManagement";
+import Backups from "./pages/Backups";
 
 // Lazy import warehouse module if enabled
 import { isWarehouseEnabled, registerWarehouseRoute } from './features/warehouse';
@@ -105,6 +106,7 @@ const App = () => (
               <Route path="/production-charts" element={<ProductionCharts />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/device-management" element={<DeviceManagement />} />
+              <Route path="/backups" element={<Backups />} />
               {/* Conditionally register warehouse route */}
               {isWarehouseEnabled() && <Route {...registerWarehouseRoute()} />}
             </Route>
