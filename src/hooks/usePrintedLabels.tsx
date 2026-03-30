@@ -45,16 +45,16 @@ export function usePrintedLabels(dateFrom?: Date, dateTo?: Date, limit = 100, of
       // Optimize query - select only essential columns for listings
       let query = supabase
         .from('printed_labels')
-        .select('id, customer, po, sku, operator, laser, quantity, print_date, box_number, created_at')
-        .order('print_date', { ascending: false })
+        .select('id, po, sku, quantity, date_printed, box_number, created_at, invoice')
+        .order('date_printed', { ascending: false })
         .order('created_at', { ascending: false })
         .range(offset, offset + limit - 1);
 
       if (dateFrom) {
-        query = query.gte('print_date', format(dateFrom, 'yyyy-MM-dd'));
+        query = query.gte('date_printed', format(dateFrom, 'yyyy-MM-dd'));
       }
       if (dateTo) {
-        query = query.lte('print_date', format(dateTo, 'yyyy-MM-dd'));
+        query = query.lte('date_printed', format(dateTo, 'yyyy-MM-dd'));
       }
 
       const { data, error } = await query;
