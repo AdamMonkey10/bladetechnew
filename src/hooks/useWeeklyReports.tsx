@@ -42,7 +42,7 @@ export const useWeeklyReports = () => {
       const { data, error } = await supabase
         .from('weekly_reports')
         .select('*')
-        .order('week_start_date', { ascending: false });
+        .order('created_at', { ascending: false });
 
       if (error) {
         toast({
