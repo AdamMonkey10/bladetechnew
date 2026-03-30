@@ -159,7 +159,7 @@ export function usePrintedLabelsByOperatorDate(operatorName?: string, date?: str
       }
       
       console.log(`Found ${data?.length || 0} printed labels for operator ${operatorName} on ${date}:`, data);
-      return data as PrintedLabel[];
+      return (data || []) as unknown as PrintedLabel[];
     },
     enabled: !!operatorName && !!date,
     ...getBatchCacheDuration([], { 
