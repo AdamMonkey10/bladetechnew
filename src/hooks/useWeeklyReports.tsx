@@ -4,20 +4,27 @@ import { useToast } from '@/hooks/use-toast';
 
 interface WeeklyReport {
   id: string;
-  week_start_date: string;
-  week_end_date: string;
+  week_number: number;
+  year: number;
+  week_start_date?: string;
+  week_end_date?: string;
   report_data: any;
-  generated_at: string;
-  status: string;
+  generated_at?: string;
+  generated_by?: string | null;
+  sent_to?: any;
+  status?: string | null;
+  created_at: string;
+  updated_at: string;
 }
 
 interface ReportRecipient {
   id: string;
   email: string;
   name: string;
-  role: string;
-  active: boolean;
+  role?: string;
+  active?: boolean | null;
   created_at: string;
+  updated_at?: string;
 }
 
 interface ReportGroup {
