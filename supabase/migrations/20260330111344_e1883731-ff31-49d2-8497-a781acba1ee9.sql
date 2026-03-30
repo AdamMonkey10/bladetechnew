@@ -1,0 +1,1 @@
+DELETE FROM public.backup_logs WHERE id IN ('5a702ee9-6a24-49ca-afbe-a421f8069b02', 'f8d4a41f-1f7d-45d8-9cff-8ed2e27ea25e', '04871852-8324-4821-86dd-d546ee203bc3', '2d4cf8f5-8c3a-4703-bc84-f14adfca683d', '26571ddd-7c8b-4ac3-a0f3-6804ac3d28fc');
