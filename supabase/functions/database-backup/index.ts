@@ -133,13 +133,14 @@ Deno.serve(async (req) => {
     let githubUrl = null;
     const githubToken = Deno.env.get("GITHUB_BACKUP_TOKEN");
     const githubRepo = Deno.env.get("GITHUB_BACKUP_REPO");
+    const projectName = Deno.env.get("GITHUB_BACKUP_PROJECT_NAME") || "default";
 
     if (githubToken && githubRepo) {
       try {
         githubUrl = await pushToGitHub(
           githubToken,
           githubRepo,
-          `backups/${today}/full-backup.json`,
+          `backups/${projectName}/${today}/full-backup.json`,
           jsonContent
         );
         console.log("Pushed to GitHub:", githubUrl);
