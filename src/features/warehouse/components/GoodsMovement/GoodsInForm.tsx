@@ -226,7 +226,7 @@ const GoodsInForm: React.FC<GoodsInFormProps> = ({ open, onOpenChange, onSuccess
         if (!selectedGoods) throw new Error('Selected goods not found');
         
         productSku = selectedGoods.sku;
-        productName = selectedGoods.raw_materials?.material_name || selectedGoods.sku;
+        productName = selectedGoods.sku;
       } else {
         productSku = validatedData.sku!;
         productName = validatedData.product_name!;
