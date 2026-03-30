@@ -555,9 +555,9 @@ function CreatePalletForm({ onSubmit, pos }: { onSubmit: (data: CreatePalletData
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit({
-      customer,
-      po_number: poNumber,
-      max_capacity: parseInt(maxCapacity)
+      pallet_number: `PLT-${Date.now()}`,
+      po: poNumber,
+      sku: customer,
     });
   };
 
