@@ -47,24 +47,24 @@ export function DataQualityPanel() {
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-orange-600">
-                  {metrics.records_with_corrections}
+                  {metrics.records_without_hours}
                 </div>
                 <div className="text-sm text-muted-foreground">Need Correction</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold">
-                  {metrics.correction_percentage.toFixed(1)}%
+                  {(100 - (metrics.data_completeness || 0)).toFixed(1)}%
                 </div>
                 <div className="text-sm text-muted-foreground">Correction Rate</div>
               </div>
             </div>
           )}
 
-          {metrics && metrics.records_with_corrections > 0 ? (
+          {metrics && metrics.records_without_hours > 0 ? (
             <Alert>
               <AlertTriangle className="h-4 w-4" />
               <AlertDescription>
-                Found {metrics.records_with_corrections} records with production data but missing hours. 
+                Found {metrics.records_without_hours} records with production data but missing hours. 
                 These records will have estimated hours calculated based on average productivity rates.
               </AlertDescription>
             </Alert>
