@@ -21,8 +21,8 @@ export class SupabaseWarehouseRepo implements WarehouseRepo {
       return this.getDefaultLayout();
     }
 
-    // The layout_data contains the aisles
-    const layoutData = data.layout_data as { aisles: any[] } || { aisles: [] };
+    // The config contains the aisles
+    const layoutData = (data.config as any as { aisles: any[] }) || { aisles: [] };
 
     return {
       id: data.id,
