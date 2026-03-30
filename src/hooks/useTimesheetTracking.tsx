@@ -95,9 +95,10 @@ export function useTimesheetTracking() {
       const workDates = new Set<string>();
       
       data.forEach(record => {
-        uniqueKeys.add(`${record.operator_id}_${record.work_date}`);
-        operatorIds.add(record.operator_id);
-        workDates.add(record.work_date);
+        const workDate = record.last_updated || record.created_at;
+        uniqueKeys.add(`${record.operator_id}_${workDate}`);
+        if (record.operator_id) operatorIds.add(record.operator_id);
+        if (workDate) workDates.add(workDate.split('T')[0]);
       });
 
       // Batch fetch all relevant shift records in a single query
