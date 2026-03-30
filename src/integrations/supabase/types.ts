@@ -10,93 +10,126 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "12.2.3 (519615d)"
+    PostgrestVersion: "14.4"
   }
   public: {
     Tables: {
       archive_shift_records: {
         Row: {
+          activities: Json | null
+          archive_reason: string | null
           archived_at: string
-          archived_by: string | null
-          created_at: string
+          boxes_produced: number | null
+          created_at: string | null
+          downtime_minutes: number | null
+          downtime_reason: string | null
           end_time: string | null
           id: string
           machine_id: string | null
+          machine_name: string | null
           notes: string | null
           operator_id: string | null
+          operator_name: string | null
+          original_id: string | null
+          product_code: string | null
           production_data: Json | null
-          shift_date: string
-          shift_type: string
+          setup_time_minutes: number | null
+          shift_date: string | null
+          shift_type: string | null
+          sku: string | null
           start_time: string | null
+          total_hours: number | null
           user_id: string | null
+          week_number: number | null
+          year: number | null
         }
         Insert: {
+          activities?: Json | null
+          archive_reason?: string | null
           archived_at?: string
-          archived_by?: string | null
-          created_at?: string
+          boxes_produced?: number | null
+          created_at?: string | null
+          downtime_minutes?: number | null
+          downtime_reason?: string | null
           end_time?: string | null
           id?: string
           machine_id?: string | null
+          machine_name?: string | null
           notes?: string | null
           operator_id?: string | null
+          operator_name?: string | null
+          original_id?: string | null
+          product_code?: string | null
           production_data?: Json | null
-          shift_date: string
-          shift_type: string
+          setup_time_minutes?: number | null
+          shift_date?: string | null
+          shift_type?: string | null
+          sku?: string | null
           start_time?: string | null
+          total_hours?: number | null
           user_id?: string | null
+          week_number?: number | null
+          year?: number | null
         }
         Update: {
+          activities?: Json | null
+          archive_reason?: string | null
           archived_at?: string
-          archived_by?: string | null
-          created_at?: string
+          boxes_produced?: number | null
+          created_at?: string | null
+          downtime_minutes?: number | null
+          downtime_reason?: string | null
           end_time?: string | null
           id?: string
           machine_id?: string | null
+          machine_name?: string | null
           notes?: string | null
           operator_id?: string | null
+          operator_name?: string | null
+          original_id?: string | null
+          product_code?: string | null
           production_data?: Json | null
-          shift_date?: string
-          shift_type?: string
+          setup_time_minutes?: number | null
+          shift_date?: string | null
+          shift_type?: string | null
+          sku?: string | null
           start_time?: string | null
+          total_hours?: number | null
           user_id?: string | null
+          week_number?: number | null
+          year?: number | null
         }
         Relationships: []
       }
       audit_log: {
         Row: {
           action: string
+          created_at: string
           id: string
-          ip_address: unknown
-          new_values: Json | null
-          old_values: Json | null
+          new_data: Json | null
+          old_data: Json | null
           record_id: string | null
           table_name: string | null
-          timestamp: string | null
-          user_agent: string | null
           user_id: string | null
         }
         Insert: {
           action: string
+          created_at?: string
           id?: string
-          ip_address?: unknown
-          new_values?: Json | null
-          old_values?: Json | null
+          new_data?: Json | null
+          old_data?: Json | null
           record_id?: string | null
           table_name?: string | null
-          timestamp?: string | null
-          user_agent?: string | null
           user_id?: string | null
         }
         Update: {
           action?: string
+          created_at?: string
           id?: string
-          ip_address?: unknown
-          new_values?: Json | null
-          old_values?: Json | null
+          new_data?: Json | null
+          old_data?: Json | null
           record_id?: string | null
           table_name?: string | null
-          timestamp?: string | null
-          user_agent?: string | null
           user_id?: string | null
         }
         Relationships: []
@@ -104,24 +137,27 @@ export type Database = {
       box_number_sequences: {
         Row: {
           created_at: string
-          current_number: number
           id: string
+          last_box_number: number | null
+          po: string
+          sku: string
           updated_at: string
-          year: number
         }
         Insert: {
           created_at?: string
-          current_number?: number
           id?: string
+          last_box_number?: number | null
+          po: string
+          sku: string
           updated_at?: string
-          year: number
         }
         Update: {
           created_at?: string
-          current_number?: number
           id?: string
+          last_box_number?: number | null
+          po?: string
+          sku?: string
           updated_at?: string
-          year?: number
         }
         Relationships: []
       }
@@ -130,6 +166,7 @@ export type Database = {
           calibration_data: Json | null
           calibration_date: string
           created_at: string
+          created_by: string | null
           equipment_id: string | null
           equipment_name: string
           equipment_serial: string | null
@@ -144,6 +181,7 @@ export type Database = {
           calibration_data?: Json | null
           calibration_date: string
           created_at?: string
+          created_by?: string | null
           equipment_id?: string | null
           equipment_name: string
           equipment_serial?: string | null
@@ -158,6 +196,7 @@ export type Database = {
           calibration_data?: Json | null
           calibration_date?: string
           created_at?: string
+          created_by?: string | null
           equipment_id?: string | null
           equipment_name?: string
           equipment_serial?: string | null
@@ -319,34 +358,34 @@ export type Database = {
       }
       clockfy_sync_log: {
         Row: {
-          clockfy_id: string
           created_at: string
           error_message: string | null
+          event_id: string | null
           event_type: string
           id: string
-          payload: Json
-          processed_at: string | null
-          processing_status: string
+          raw_payload: Json | null
+          records_processed: number | null
+          status: string
         }
         Insert: {
-          clockfy_id: string
           created_at?: string
           error_message?: string | null
+          event_id?: string | null
           event_type: string
           id?: string
-          payload: Json
-          processed_at?: string | null
-          processing_status?: string
+          raw_payload?: Json | null
+          records_processed?: number | null
+          status?: string
         }
         Update: {
-          clockfy_id?: string
           created_at?: string
           error_message?: string | null
+          event_id?: string | null
           event_type?: string
           id?: string
-          payload?: Json
-          processed_at?: string | null
-          processing_status?: string
+          raw_payload?: Json | null
+          records_processed?: number | null
+          status?: string
         }
         Relationships: []
       }
@@ -405,6 +444,7 @@ export type Database = {
         Row: {
           boxes_printed: number | null
           created_at: string
+          customer_id: string | null
           customer_name: string
           customer_template_id: string | null
           delivery_date: string | null
@@ -412,17 +452,27 @@ export type Database = {
           items: Json | null
           line_item_progress: Json | null
           notes: string | null
+          order_quantity: number | null
           po_date: string
           po_number: string
+          priority: string | null
+          produced_quantity: number | null
+          progress: number | null
           progress_percentage: number | null
-          status: boolean | null
+          quantity: number | null
+          sku: string | null
+          status: string | null
+          total_amount: number | null
           total_printed: number | null
           updated_at: string
           user_id: string | null
+          warehouse_quantity_moved: number | null
+          warehouse_status: string | null
         }
         Insert: {
           boxes_printed?: number | null
           created_at?: string
+          customer_id?: string | null
           customer_name: string
           customer_template_id?: string | null
           delivery_date?: string | null
@@ -430,17 +480,27 @@ export type Database = {
           items?: Json | null
           line_item_progress?: Json | null
           notes?: string | null
+          order_quantity?: number | null
           po_date: string
           po_number: string
+          priority?: string | null
+          produced_quantity?: number | null
+          progress?: number | null
           progress_percentage?: number | null
-          status?: boolean | null
+          quantity?: number | null
+          sku?: string | null
+          status?: string | null
+          total_amount?: number | null
           total_printed?: number | null
           updated_at?: string
           user_id?: string | null
+          warehouse_quantity_moved?: number | null
+          warehouse_status?: string | null
         }
         Update: {
           boxes_printed?: number | null
           created_at?: string
+          customer_id?: string | null
           customer_name?: string
           customer_template_id?: string | null
           delivery_date?: string | null
@@ -448,15 +508,31 @@ export type Database = {
           items?: Json | null
           line_item_progress?: Json | null
           notes?: string | null
+          order_quantity?: number | null
           po_date?: string
           po_number?: string
+          priority?: string | null
+          produced_quantity?: number | null
+          progress?: number | null
           progress_percentage?: number | null
-          status?: boolean | null
+          quantity?: number | null
+          sku?: string | null
+          status?: string | null
+          total_amount?: number | null
           total_printed?: number | null
           updated_at?: string
           user_id?: string | null
+          warehouse_quantity_moved?: number | null
+          warehouse_status?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "customer_pos_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "customer_pos_customer_template_id_fkey"
             columns: ["customer_template_id"]
@@ -468,37 +544,40 @@ export type Database = {
       }
       customers: {
         Row: {
+          active: boolean | null
+          address: string | null
+          code: string | null
+          contact_email: string | null
+          contact_phone: string | null
           created_at: string
-          customer_name: string
           id: string
-          is_active: boolean
-          logo_position: Json | null
-          logo_url: string | null
-          template_name: string | null
+          name: string
+          notes: string | null
           updated_at: string
-          zpl_code: string | null
         }
         Insert: {
+          active?: boolean | null
+          address?: string | null
+          code?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
           created_at?: string
-          customer_name: string
           id?: string
-          is_active?: boolean
-          logo_position?: Json | null
-          logo_url?: string | null
-          template_name?: string | null
+          name: string
+          notes?: string | null
           updated_at?: string
-          zpl_code?: string | null
         }
         Update: {
+          active?: boolean | null
+          address?: string | null
+          code?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
           created_at?: string
-          customer_name?: string
           id?: string
-          is_active?: boolean
-          logo_position?: Json | null
-          logo_url?: string | null
-          template_name?: string | null
+          name?: string
+          notes?: string | null
           updated_at?: string
-          zpl_code?: string | null
         }
         Relationships: []
       }
@@ -550,62 +629,38 @@ export type Database = {
       goods_out: {
         Row: {
           created_at: string
-          customer_id: string | null
-          destination: string | null
+          customer: string | null
           dispatch_date: string
           id: string
-          invoice: string | null
           notes: string | null
-          quantity_dispatched: number
-          raw_material_id: string | null
-          reference_number: string | null
-          updated_at: string
+          po_number: string | null
+          quantity: number
+          sku: string | null
           user_id: string | null
         }
         Insert: {
           created_at?: string
-          customer_id?: string | null
-          destination?: string | null
+          customer?: string | null
           dispatch_date?: string
           id?: string
-          invoice?: string | null
           notes?: string | null
-          quantity_dispatched?: number
-          raw_material_id?: string | null
-          reference_number?: string | null
-          updated_at?: string
+          po_number?: string | null
+          quantity?: number
+          sku?: string | null
           user_id?: string | null
         }
         Update: {
           created_at?: string
-          customer_id?: string | null
-          destination?: string | null
+          customer?: string | null
           dispatch_date?: string
           id?: string
-          invoice?: string | null
           notes?: string | null
-          quantity_dispatched?: number
-          raw_material_id?: string | null
-          reference_number?: string | null
-          updated_at?: string
+          po_number?: string | null
+          quantity?: number
+          sku?: string | null
           user_id?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "goods_out_customer_id_fkey"
-            columns: ["customer_id"]
-            isOneToOne: false
-            referencedRelation: "customers"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "goods_out_raw_material_id_fkey"
-            columns: ["raw_material_id"]
-            isOneToOne: false
-            referencedRelation: "raw_materials"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       goods_received: {
         Row: {
@@ -618,7 +673,7 @@ export type Database = {
           notes: string | null
           pallet_number: number | null
           quantity_received: number
-          raw_material_id: string | null
+          rake_angle: number | null
           received_date: string
           reference_number: string | null
           set_left_1: number | null
@@ -628,10 +683,11 @@ export type Database = {
           set_right_2: number | null
           set_right_avg: number | null
           sku: string | null
+          stock_item_id: string | null
           supplier: string | null
+          tooth_pitch: number | null
           user_id: string | null
-          warehouse_quantity_moved: number | null
-          warehouse_status: string | null
+          width: number | null
         }
         Insert: {
           created_at?: string
@@ -642,9 +698,9 @@ export type Database = {
           invoice?: string | null
           notes?: string | null
           pallet_number?: number | null
-          quantity_received: number
-          raw_material_id?: string | null
-          received_date: string
+          quantity_received?: number
+          rake_angle?: number | null
+          received_date?: string
           reference_number?: string | null
           set_left_1?: number | null
           set_left_2?: number | null
@@ -653,10 +709,11 @@ export type Database = {
           set_right_2?: number | null
           set_right_avg?: number | null
           sku?: string | null
+          stock_item_id?: string | null
           supplier?: string | null
+          tooth_pitch?: number | null
           user_id?: string | null
-          warehouse_quantity_moved?: number | null
-          warehouse_status?: string | null
+          width?: number | null
         }
         Update: {
           created_at?: string
@@ -668,7 +725,7 @@ export type Database = {
           notes?: string | null
           pallet_number?: number | null
           quantity_received?: number
-          raw_material_id?: string | null
+          rake_angle?: number | null
           received_date?: string
           reference_number?: string | null
           set_left_1?: number | null
@@ -678,24 +735,18 @@ export type Database = {
           set_right_2?: number | null
           set_right_avg?: number | null
           sku?: string | null
+          stock_item_id?: string | null
           supplier?: string | null
+          tooth_pitch?: number | null
           user_id?: string | null
-          warehouse_quantity_moved?: number | null
-          warehouse_status?: string | null
+          width?: number | null
         }
         Relationships: [
           {
-            foreignKeyName: "fk_goods_received_supplier"
-            columns: ["supplier"]
+            foreignKeyName: "goods_received_stock_item_id_fkey"
+            columns: ["stock_item_id"]
             isOneToOne: false
-            referencedRelation: "suppliers"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "goods_received_raw_material_id_fkey"
-            columns: ["raw_material_id"]
-            isOneToOne: false
-            referencedRelation: "raw_materials"
+            referencedRelation: "stock_items"
             referencedColumns: ["id"]
           },
         ]
@@ -703,66 +754,35 @@ export type Database = {
       label_printing_sessions: {
         Row: {
           created_at: string
-          customer_po_id: string | null
+          end_box: number | null
           id: string
-          invoice: string | null
-          laser_machine_id: string
-          operator_id: string | null
-          quantity: number | null
-          session_date: string
-          sku: string | null
-          updated_at: string
-          user_id: string
+          po: string | null
+          sku: string
+          start_box: number | null
+          total_labels: number | null
+          user_id: string | null
         }
         Insert: {
           created_at?: string
-          customer_po_id?: string | null
+          end_box?: number | null
           id?: string
-          invoice?: string | null
-          laser_machine_id: string
-          operator_id?: string | null
-          quantity?: number | null
-          session_date?: string
-          sku?: string | null
-          updated_at?: string
-          user_id: string
+          po?: string | null
+          sku: string
+          start_box?: number | null
+          total_labels?: number | null
+          user_id?: string | null
         }
         Update: {
           created_at?: string
-          customer_po_id?: string | null
+          end_box?: number | null
           id?: string
-          invoice?: string | null
-          laser_machine_id?: string
-          operator_id?: string | null
-          quantity?: number | null
-          session_date?: string
-          sku?: string | null
-          updated_at?: string
-          user_id?: string
+          po?: string | null
+          sku?: string
+          start_box?: number | null
+          total_labels?: number | null
+          user_id?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "fk_customer_po"
-            columns: ["customer_po_id"]
-            isOneToOne: false
-            referencedRelation: "customer_pos"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "fk_laser_machine"
-            columns: ["laser_machine_id"]
-            isOneToOne: false
-            referencedRelation: "machines"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "fk_operator"
-            columns: ["operator_id"]
-            isOneToOne: false
-            referencedRelation: "operators"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       machines: {
         Row: {
@@ -798,11 +818,11 @@ export type Database = {
         Row: {
           created_at: string
           defect_rate: number | null
-          goods_received_id: string | null
           id: string
           machine_id: string | null
           notes: string | null
           operator_id: string | null
+          po: string | null
           product_id: string | null
           shift: string | null
           test_data: Json | null
@@ -815,11 +835,11 @@ export type Database = {
         Insert: {
           created_at?: string
           defect_rate?: number | null
-          goods_received_id?: string | null
           id?: string
           machine_id?: string | null
           notes?: string | null
           operator_id?: string | null
+          po?: string | null
           product_id?: string | null
           shift?: string | null
           test_data?: Json | null
@@ -832,11 +852,11 @@ export type Database = {
         Update: {
           created_at?: string
           defect_rate?: number | null
-          goods_received_id?: string | null
           id?: string
           machine_id?: string | null
           notes?: string | null
           operator_id?: string | null
+          po?: string | null
           product_id?: string | null
           shift?: string | null
           test_data?: Json | null
@@ -847,13 +867,6 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: [
-          {
-            foreignKeyName: "milwaukee_test_reports_goods_received_id_fkey"
-            columns: ["goods_received_id"]
-            isOneToOne: false
-            referencedRelation: "goods_received"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "milwaukee_test_reports_machine_id_fkey"
             columns: ["machine_id"]
@@ -879,70 +892,94 @@ export type Database = {
       }
       oee_daily_summary: {
         Row: {
-          activity_type: string
-          availability_247: number
-          availability_booked: number
-          booked_hours: number
-          calculation_date: string
+          actual_run_time_minutes: number | null
+          availability: number | null
           created_at: string
+          defect_pieces: number | null
+          downtime_minutes: number | null
+          good_pieces: number | null
           id: string
-          oee_247: number
-          oee_booked: number
-          performance_247: number
-          performance_booked: number
-          quality: number
-          target_rate_247: number
-          target_rate_booked: number
-          total_scrap: number
-          total_time: number
-          total_units: number
+          machine_id: string | null
+          machine_name: string | null
+          notes: string | null
+          oee: number | null
+          operator_count: number | null
+          performance: number | null
+          planned_time_minutes: number | null
+          quality: number | null
+          setup_minutes: number | null
+          shift_count: number | null
+          sku_count: number | null
+          summary_date: string
+          total_pieces: number | null
           updated_at: string
+          week_number: number | null
+          year: number | null
         }
         Insert: {
-          activity_type: string
-          availability_247?: number
-          availability_booked?: number
-          booked_hours?: number
-          calculation_date: string
+          actual_run_time_minutes?: number | null
+          availability?: number | null
           created_at?: string
+          defect_pieces?: number | null
+          downtime_minutes?: number | null
+          good_pieces?: number | null
           id?: string
-          oee_247?: number
-          oee_booked?: number
-          performance_247?: number
-          performance_booked?: number
-          quality?: number
-          target_rate_247?: number
-          target_rate_booked?: number
-          total_scrap?: number
-          total_time?: number
-          total_units?: number
+          machine_id?: string | null
+          machine_name?: string | null
+          notes?: string | null
+          oee?: number | null
+          operator_count?: number | null
+          performance?: number | null
+          planned_time_minutes?: number | null
+          quality?: number | null
+          setup_minutes?: number | null
+          shift_count?: number | null
+          sku_count?: number | null
+          summary_date: string
+          total_pieces?: number | null
           updated_at?: string
+          week_number?: number | null
+          year?: number | null
         }
         Update: {
-          activity_type?: string
-          availability_247?: number
-          availability_booked?: number
-          booked_hours?: number
-          calculation_date?: string
+          actual_run_time_minutes?: number | null
+          availability?: number | null
           created_at?: string
+          defect_pieces?: number | null
+          downtime_minutes?: number | null
+          good_pieces?: number | null
           id?: string
-          oee_247?: number
-          oee_booked?: number
-          performance_247?: number
-          performance_booked?: number
-          quality?: number
-          target_rate_247?: number
-          target_rate_booked?: number
-          total_scrap?: number
-          total_time?: number
-          total_units?: number
+          machine_id?: string | null
+          machine_name?: string | null
+          notes?: string | null
+          oee?: number | null
+          operator_count?: number | null
+          performance?: number | null
+          planned_time_minutes?: number | null
+          quality?: number | null
+          setup_minutes?: number | null
+          shift_count?: number | null
+          sku_count?: number | null
+          summary_date?: string
+          total_pieces?: number | null
           updated_at?: string
+          week_number?: number | null
+          year?: number | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "oee_daily_summary_machine_id_fkey"
+            columns: ["machine_id"]
+            isOneToOne: false
+            referencedRelation: "machines"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       operators: {
         Row: {
           active: boolean | null
+          clockfy_id: string | null
           created_at: string
           id: string
           operator_code: string
@@ -951,6 +988,7 @@ export type Database = {
         }
         Insert: {
           active?: boolean | null
+          clockfy_id?: string | null
           created_at?: string
           id?: string
           operator_code: string
@@ -959,6 +997,7 @@ export type Database = {
         }
         Update: {
           active?: boolean | null
+          clockfy_id?: string | null
           created_at?: string
           id?: string
           operator_code?: string
@@ -970,24 +1009,21 @@ export type Database = {
       pallet_assignments: {
         Row: {
           assigned_at: string
-          assigned_by: string
           id: string
-          pallet_id: string
-          printed_label_id: string
+          pallet_id: string | null
+          printed_label_id: string | null
         }
         Insert: {
           assigned_at?: string
-          assigned_by: string
           id?: string
-          pallet_id: string
-          printed_label_id: string
+          pallet_id?: string | null
+          printed_label_id?: string | null
         }
         Update: {
           assigned_at?: string
-          assigned_by?: string
           id?: string
-          pallet_id?: string
-          printed_label_id?: string
+          pallet_id?: string | null
+          printed_label_id?: string | null
         }
         Relationships: [
           {
@@ -1000,7 +1036,7 @@ export type Database = {
           {
             foreignKeyName: "pallet_assignments_printed_label_id_fkey"
             columns: ["printed_label_id"]
-            isOneToOne: true
+            isOneToOne: false
             referencedRelation: "printed_labels"
             referencedColumns: ["id"]
           },
@@ -1009,159 +1045,158 @@ export type Database = {
       pallet_number_sequences: {
         Row: {
           created_at: string
-          current_number: number
           id: string
+          last_number: number | null
+          prefix: string
           updated_at: string
-          year: number
         }
         Insert: {
           created_at?: string
-          current_number?: number
           id?: string
+          last_number?: number | null
+          prefix?: string
           updated_at?: string
-          year: number
         }
         Update: {
           created_at?: string
-          current_number?: number
           id?: string
+          last_number?: number | null
+          prefix?: string
           updated_at?: string
-          year?: number
         }
         Relationships: []
       }
       pallets: {
         Row: {
-          completed_at: string | null
           created_at: string
-          created_by: string
-          current_count: number
-          customer: string
           id: string
-          max_capacity: number
+          notes: string | null
           pallet_number: string
-          po_number: string
-          status: string
-          total_quantity: number
+          po: string | null
+          sku: string | null
+          status: string | null
           updated_at: string
+          user_id: string | null
         }
         Insert: {
-          completed_at?: string | null
           created_at?: string
-          created_by: string
-          current_count?: number
-          customer: string
           id?: string
-          max_capacity?: number
+          notes?: string | null
           pallet_number: string
-          po_number: string
-          status?: string
-          total_quantity?: number
+          po?: string | null
+          sku?: string | null
+          status?: string | null
           updated_at?: string
+          user_id?: string | null
         }
         Update: {
-          completed_at?: string | null
           created_at?: string
-          created_by?: string
-          current_count?: number
-          customer?: string
           id?: string
-          max_capacity?: number
+          notes?: string | null
           pallet_number?: string
-          po_number?: string
-          status?: string
-          total_quantity?: number
+          po?: string | null
+          sku?: string | null
+          status?: string | null
           updated_at?: string
+          user_id?: string | null
         }
         Relationships: []
       }
       printed_labels: {
         Row: {
-          box_number: string | null
+          box_number: number | null
           created_at: string
-          customer: string
-          document_id: string | null
+          date_printed: string | null
+          goods_received_id: string | null
           id: string
           invoice: string | null
-          laser: string
           line_item_index: number | null
-          operator: string
-          pallet_name: string | null
-          po: string
-          print_date: string
-          quantity: number
+          line_number: number | null
+          po: string | null
+          quantity: number | null
+          session_id: string | null
           sku: string
-          updated_at: string
-          user_id: string
+          user_id: string | null
         }
         Insert: {
-          box_number?: string | null
+          box_number?: number | null
           created_at?: string
-          customer: string
-          document_id?: string | null
+          date_printed?: string | null
+          goods_received_id?: string | null
           id?: string
           invoice?: string | null
-          laser: string
           line_item_index?: number | null
-          operator: string
-          pallet_name?: string | null
-          po: string
-          print_date: string
-          quantity: number
+          line_number?: number | null
+          po?: string | null
+          quantity?: number | null
+          session_id?: string | null
           sku: string
-          updated_at?: string
-          user_id: string
+          user_id?: string | null
         }
         Update: {
-          box_number?: string | null
+          box_number?: number | null
           created_at?: string
-          customer?: string
-          document_id?: string | null
+          date_printed?: string | null
+          goods_received_id?: string | null
           id?: string
           invoice?: string | null
-          laser?: string
           line_item_index?: number | null
-          operator?: string
-          pallet_name?: string | null
-          po?: string
-          print_date?: string
-          quantity?: number
+          line_number?: number | null
+          po?: string | null
+          quantity?: number | null
+          session_id?: string | null
           sku?: string
-          updated_at?: string
-          user_id?: string
+          user_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "printed_labels_goods_received_id_fkey"
+            columns: ["goods_received_id"]
+            isOneToOne: false
+            referencedRelation: "goods_received"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       printer_settings: {
         Row: {
           created_at: string
           id: string
-          ip_address: string
+          label_height: number | null
           label_height_mm: number | null
+          label_width: number | null
           label_width_mm: number | null
-          port: number
+          printer_ip: string
+          printer_port: number
+          template_name: string | null
           updated_at: string
-          user_id: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string
           id?: string
-          ip_address?: string
+          label_height?: number | null
           label_height_mm?: number | null
+          label_width?: number | null
           label_width_mm?: number | null
-          port?: number
+          printer_ip?: string
+          printer_port?: number
+          template_name?: string | null
           updated_at?: string
-          user_id?: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string
           id?: string
-          ip_address?: string
+          label_height?: number | null
           label_height_mm?: number | null
+          label_width?: number | null
           label_width_mm?: number | null
-          port?: number
+          printer_ip?: string
+          printer_port?: number
+          template_name?: string | null
           updated_at?: string
-          user_id?: string
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -1170,28 +1205,25 @@ export type Database = {
           created_at: string
           id: string
           notes: string | null
-          product_id: string
-          quantity_required: number
-          raw_material_id: string
-          updated_at: string
+          product_id: string | null
+          quantity_required: number | null
+          raw_material_id: string | null
         }
         Insert: {
           created_at?: string
           id?: string
           notes?: string | null
-          product_id: string
-          quantity_required?: number
-          raw_material_id: string
-          updated_at?: string
+          product_id?: string | null
+          quantity_required?: number | null
+          raw_material_id?: string | null
         }
         Update: {
           created_at?: string
           id?: string
           notes?: string | null
-          product_id?: string
-          quantity_required?: number
-          raw_material_id?: string
-          updated_at?: string
+          product_id?: string | null
+          quantity_required?: number | null
+          raw_material_id?: string | null
         }
         Relationships: [
           {
@@ -1221,6 +1253,9 @@ export type Database = {
           blade_width_max: number | null
           blade_width_min: number | null
           blade_width_target: number | null
+          clearance_angle_max: number | null
+          clearance_angle_min: number | null
+          clearance_angle_target: number | null
           created_at: string
           dross_max: number | null
           dross_min: number | null
@@ -1235,13 +1270,23 @@ export type Database = {
           height_min: number | null
           height_target: number | null
           id: string
+          kerf_max: number | null
+          kerf_min: number | null
+          kerf_target: number | null
           product_code: string
+          product_id: string | null
+          rake_angle_max: number | null
+          rake_angle_min: number | null
+          rake_angle_target: number | null
           set_left_max: number | null
           set_left_min: number | null
           set_left_target: number | null
           set_right_max: number | null
           set_right_min: number | null
           set_right_target: number | null
+          tooth_pitch_max: number | null
+          tooth_pitch_min: number | null
+          tooth_pitch_target: number | null
           tooth_set_max: number | null
           tooth_set_min: number | null
           tooth_set_target: number | null
@@ -1257,6 +1302,9 @@ export type Database = {
           blade_width_max?: number | null
           blade_width_min?: number | null
           blade_width_target?: number | null
+          clearance_angle_max?: number | null
+          clearance_angle_min?: number | null
+          clearance_angle_target?: number | null
           created_at?: string
           dross_max?: number | null
           dross_min?: number | null
@@ -1271,13 +1319,23 @@ export type Database = {
           height_min?: number | null
           height_target?: number | null
           id?: string
+          kerf_max?: number | null
+          kerf_min?: number | null
+          kerf_target?: number | null
           product_code: string
+          product_id?: string | null
+          rake_angle_max?: number | null
+          rake_angle_min?: number | null
+          rake_angle_target?: number | null
           set_left_max?: number | null
           set_left_min?: number | null
           set_left_target?: number | null
           set_right_max?: number | null
           set_right_min?: number | null
           set_right_target?: number | null
+          tooth_pitch_max?: number | null
+          tooth_pitch_min?: number | null
+          tooth_pitch_target?: number | null
           tooth_set_max?: number | null
           tooth_set_min?: number | null
           tooth_set_target?: number | null
@@ -1293,6 +1351,9 @@ export type Database = {
           blade_width_max?: number | null
           blade_width_min?: number | null
           blade_width_target?: number | null
+          clearance_angle_max?: number | null
+          clearance_angle_min?: number | null
+          clearance_angle_target?: number | null
           created_at?: string
           dross_max?: number | null
           dross_min?: number | null
@@ -1307,19 +1368,37 @@ export type Database = {
           height_min?: number | null
           height_target?: number | null
           id?: string
+          kerf_max?: number | null
+          kerf_min?: number | null
+          kerf_target?: number | null
           product_code?: string
+          product_id?: string | null
+          rake_angle_max?: number | null
+          rake_angle_min?: number | null
+          rake_angle_target?: number | null
           set_left_max?: number | null
           set_left_min?: number | null
           set_left_target?: number | null
           set_right_max?: number | null
           set_right_min?: number | null
           set_right_target?: number | null
+          tooth_pitch_max?: number | null
+          tooth_pitch_min?: number | null
+          tooth_pitch_target?: number | null
           tooth_set_max?: number | null
           tooth_set_min?: number | null
           tooth_set_target?: number | null
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "product_specifications_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       products: {
         Row: {
@@ -1362,54 +1441,42 @@ export type Database = {
           created_at: string
           gauge_max: number | null
           gauge_min: number | null
-          gauge_target: number | null
           height_max: number | null
           height_min: number | null
-          height_target: number | null
           id: string
           material_code: string
           set_left_max: number | null
           set_left_min: number | null
-          set_left_target: number | null
           set_right_max: number | null
           set_right_min: number | null
-          set_right_target: number | null
           updated_at: string
         }
         Insert: {
           created_at?: string
           gauge_max?: number | null
           gauge_min?: number | null
-          gauge_target?: number | null
           height_max?: number | null
           height_min?: number | null
-          height_target?: number | null
           id?: string
           material_code: string
           set_left_max?: number | null
           set_left_min?: number | null
-          set_left_target?: number | null
           set_right_max?: number | null
           set_right_min?: number | null
-          set_right_target?: number | null
           updated_at?: string
         }
         Update: {
           created_at?: string
           gauge_max?: number | null
           gauge_min?: number | null
-          gauge_target?: number | null
           height_max?: number | null
           height_min?: number | null
-          height_target?: number | null
           id?: string
           material_code?: string
           set_left_max?: number | null
           set_left_min?: number | null
-          set_left_target?: number | null
           set_right_max?: number | null
           set_right_min?: number | null
-          set_right_target?: number | null
           updated_at?: string
         }
         Relationships: []
@@ -1423,6 +1490,7 @@ export type Database = {
           material_name: string
           revision: string | null
           specification_date: string | null
+          unit: string | null
           updated_at: string
         }
         Insert: {
@@ -1433,6 +1501,7 @@ export type Database = {
           material_name: string
           revision?: string | null
           specification_date?: string | null
+          unit?: string | null
           updated_at?: string
         }
         Update: {
@@ -1443,6 +1512,7 @@ export type Database = {
           material_name?: string
           revision?: string | null
           specification_date?: string | null
+          unit?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -1450,21 +1520,21 @@ export type Database = {
       recipient_group_members: {
         Row: {
           created_at: string
-          group_id: string
+          group_id: string | null
           id: string
-          recipient_id: string
+          recipient_id: string | null
         }
         Insert: {
           created_at?: string
-          group_id: string
+          group_id?: string | null
           id?: string
-          recipient_id: string
+          recipient_id?: string | null
         }
         Update: {
           created_at?: string
-          group_id?: string
+          group_id?: string | null
           id?: string
-          recipient_id?: string
+          recipient_id?: string | null
         }
         Relationships: [
           {
@@ -1489,96 +1559,129 @@ export type Database = {
           description: string | null
           id: string
           name: string
-          updated_at: string
         }
         Insert: {
           created_at?: string
           description?: string | null
           id?: string
           name: string
-          updated_at?: string
         }
         Update: {
           created_at?: string
           description?: string | null
           id?: string
           name?: string
-          updated_at?: string
         }
         Relationships: []
       }
       report_recipients: {
         Row: {
-          active: boolean
+          active: boolean | null
           created_at: string
-          created_by: string | null
           email: string
           id: string
           name: string
-          role: string | null
           updated_at: string
         }
         Insert: {
-          active?: boolean
+          active?: boolean | null
           created_at?: string
-          created_by?: string | null
           email: string
           id?: string
           name: string
-          role?: string | null
           updated_at?: string
         }
         Update: {
-          active?: boolean
+          active?: boolean | null
           created_at?: string
-          created_by?: string | null
           email?: string
           id?: string
           name?: string
-          role?: string | null
           updated_at?: string
         }
         Relationships: []
       }
       shift_records: {
         Row: {
+          activities: Json | null
+          boxes_produced: number | null
           created_at: string
+          downtime_minutes: number | null
+          downtime_reason: string | null
           end_time: string | null
+          end_timestamp: string | null
           id: string
           machine_id: string | null
+          machine_name: string | null
           notes: string | null
           operator_id: string | null
+          operator_name: string | null
+          product_code: string | null
           production_data: Json | null
+          setup_time_minutes: number | null
           shift_date: string
           shift_type: string
+          sku: string | null
           start_time: string | null
+          start_timestamp: string | null
+          total_hours: number | null
           user_id: string | null
+          week_number: number | null
+          year: number | null
         }
         Insert: {
+          activities?: Json | null
+          boxes_produced?: number | null
           created_at?: string
+          downtime_minutes?: number | null
+          downtime_reason?: string | null
           end_time?: string | null
+          end_timestamp?: string | null
           id?: string
           machine_id?: string | null
+          machine_name?: string | null
           notes?: string | null
           operator_id?: string | null
+          operator_name?: string | null
+          product_code?: string | null
           production_data?: Json | null
+          setup_time_minutes?: number | null
           shift_date: string
           shift_type: string
+          sku?: string | null
           start_time?: string | null
+          start_timestamp?: string | null
+          total_hours?: number | null
           user_id?: string | null
+          week_number?: number | null
+          year?: number | null
         }
         Update: {
+          activities?: Json | null
+          boxes_produced?: number | null
           created_at?: string
+          downtime_minutes?: number | null
+          downtime_reason?: string | null
           end_time?: string | null
+          end_timestamp?: string | null
           id?: string
           machine_id?: string | null
+          machine_name?: string | null
           notes?: string | null
           operator_id?: string | null
+          operator_name?: string | null
+          product_code?: string | null
           production_data?: Json | null
+          setup_time_minutes?: number | null
           shift_date?: string
           shift_type?: string
+          sku?: string | null
           start_time?: string | null
+          start_timestamp?: string | null
+          total_hours?: number | null
           user_id?: string | null
+          week_number?: number | null
+          year?: number | null
         }
         Relationships: [
           {
@@ -1659,40 +1762,46 @@ export type Database = {
       }
       timesheet_tracking: {
         Row: {
-          clockfy_events_exist: boolean | null
-          created_at: string | null
-          days_overdue: number | null
-          escalation_level: string | null
+          actual_shifts: number | null
+          compliance_rate: number | null
+          created_at: string
+          expected_shifts: number | null
           id: string
-          operator_id: string
-          timesheet_submitted: boolean | null
-          timesheet_submitted_at: string | null
-          updated_at: string | null
-          work_date: string
+          last_updated: string | null
+          missing_shifts: number | null
+          operator_id: string | null
+          operator_name: string | null
+          status: string | null
+          week_number: number
+          year: number
         }
         Insert: {
-          clockfy_events_exist?: boolean | null
-          created_at?: string | null
-          days_overdue?: number | null
-          escalation_level?: string | null
+          actual_shifts?: number | null
+          compliance_rate?: number | null
+          created_at?: string
+          expected_shifts?: number | null
           id?: string
-          operator_id: string
-          timesheet_submitted?: boolean | null
-          timesheet_submitted_at?: string | null
-          updated_at?: string | null
-          work_date: string
+          last_updated?: string | null
+          missing_shifts?: number | null
+          operator_id?: string | null
+          operator_name?: string | null
+          status?: string | null
+          week_number: number
+          year: number
         }
         Update: {
-          clockfy_events_exist?: boolean | null
-          created_at?: string | null
-          days_overdue?: number | null
-          escalation_level?: string | null
+          actual_shifts?: number | null
+          compliance_rate?: number | null
+          created_at?: string
+          expected_shifts?: number | null
           id?: string
-          operator_id?: string
-          timesheet_submitted?: boolean | null
-          timesheet_submitted_at?: string | null
-          updated_at?: string | null
-          work_date?: string
+          last_updated?: string | null
+          missing_shifts?: number | null
+          operator_id?: string | null
+          operator_name?: string | null
+          status?: string | null
+          week_number?: number
+          year?: number
         }
         Relationships: [
           {
@@ -1706,22 +1815,28 @@ export type Database = {
       }
       warehouse_aisles: {
         Row: {
-          created_at: string | null
+          code: string
+          created_at: string
           id: string
+          label: string | null
           layout_id: string | null
-          name: string
+          sort_order: number | null
         }
         Insert: {
-          created_at?: string | null
+          code: string
+          created_at?: string
           id?: string
+          label?: string | null
           layout_id?: string | null
-          name: string
+          sort_order?: number | null
         }
         Update: {
-          created_at?: string | null
+          code?: string
+          created_at?: string
           id?: string
+          label?: string | null
           layout_id?: string | null
-          name?: string
+          sort_order?: number | null
         }
         Relationships: [
           {
@@ -1736,24 +1851,27 @@ export type Database = {
       warehouse_bays: {
         Row: {
           aisle_id: string | null
-          created_at: string | null
+          code: string
+          created_at: string
           id: string
-          max_weight_kg: number | null
-          name: string
+          label: string | null
+          sort_order: number | null
         }
         Insert: {
           aisle_id?: string | null
-          created_at?: string | null
+          code: string
+          created_at?: string
           id?: string
-          max_weight_kg?: number | null
-          name: string
+          label?: string | null
+          sort_order?: number | null
         }
         Update: {
           aisle_id?: string | null
-          created_at?: string | null
+          code?: string
+          created_at?: string
           id?: string
-          max_weight_kg?: number | null
-          name?: string
+          label?: string | null
+          sort_order?: number | null
         }
         Relationships: [
           {
@@ -1767,26 +1885,23 @@ export type Database = {
       }
       warehouse_layouts: {
         Row: {
+          config: Json
           created_at: string
-          created_by: string | null
           id: string
-          layout_data: Json
           name: string
           updated_at: string
         }
         Insert: {
+          config?: Json
           created_at?: string
-          created_by?: string | null
           id?: string
-          layout_data: Json
-          name: string
+          name?: string
           updated_at?: string
         }
         Update: {
+          config?: Json
           created_at?: string
-          created_by?: string | null
           id?: string
-          layout_data?: Json
           name?: string
           updated_at?: string
         }
@@ -1794,64 +1909,35 @@ export type Database = {
       }
       warehouse_levels: {
         Row: {
-          code: string
-          constraints: string[] | null
-          created_at: string | null
-          id: string
-          level_number: number
-          location_id: string | null
-          max_weight_kg: number | null
-        }
-        Insert: {
-          code: string
-          constraints?: string[] | null
-          created_at?: string | null
-          id?: string
-          level_number: number
-          location_id?: string | null
-          max_weight_kg?: number | null
-        }
-        Update: {
-          code?: string
-          constraints?: string[] | null
-          created_at?: string | null
-          id?: string
-          level_number?: number
-          location_id?: string | null
-          max_weight_kg?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "warehouse_levels_location_id_fkey"
-            columns: ["location_id"]
-            isOneToOne: false
-            referencedRelation: "warehouse_locations"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      warehouse_locations: {
-        Row: {
           bay_id: string | null
-          created_at: string | null
+          code: string
+          created_at: string
           id: string
-          name: string
+          label: string | null
+          max_weight_kg: number | null
+          sort_order: number | null
         }
         Insert: {
           bay_id?: string | null
-          created_at?: string | null
+          code: string
+          created_at?: string
           id?: string
-          name: string
+          label?: string | null
+          max_weight_kg?: number | null
+          sort_order?: number | null
         }
         Update: {
           bay_id?: string | null
-          created_at?: string | null
+          code?: string
+          created_at?: string
           id?: string
-          name?: string
+          label?: string | null
+          max_weight_kg?: number | null
+          sort_order?: number | null
         }
         Relationships: [
           {
-            foreignKeyName: "warehouse_locations_bay_id_fkey"
+            foreignKeyName: "warehouse_levels_bay_id_fkey"
             columns: ["bay_id"]
             isOneToOne: false
             referencedRelation: "warehouse_bays"
@@ -1859,51 +1945,83 @@ export type Database = {
           },
         ]
       }
-      warehouse_products: {
+      warehouse_locations: {
         Row: {
-          attributes: Json | null
-          barcode: string | null
+          code: string
           created_at: string
-          created_by: string | null
-          dimensions_mm: Json | null
-          expiry_date: string | null
           id: string
-          max_qty: number | null
-          min_qty: number | null
-          name: string
-          sku: string
-          updated_at: string
-          weight_kg: number | null
+          label: string | null
+          level_id: string | null
+          location_type: string | null
+          max_weight_kg: number | null
         }
         Insert: {
-          attributes?: Json | null
-          barcode?: string | null
+          code: string
           created_at?: string
-          created_by?: string | null
-          dimensions_mm?: Json | null
-          expiry_date?: string | null
           id?: string
-          max_qty?: number | null
-          min_qty?: number | null
-          name: string
-          sku: string
-          updated_at?: string
-          weight_kg?: number | null
+          label?: string | null
+          level_id?: string | null
+          location_type?: string | null
+          max_weight_kg?: number | null
         }
         Update: {
-          attributes?: Json | null
-          barcode?: string | null
+          code?: string
           created_at?: string
-          created_by?: string | null
-          dimensions_mm?: Json | null
-          expiry_date?: string | null
           id?: string
-          max_qty?: number | null
-          min_qty?: number | null
-          name?: string
-          sku?: string
+          label?: string | null
+          level_id?: string | null
+          location_type?: string | null
+          max_weight_kg?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "warehouse_locations_level_id_fkey"
+            columns: ["level_id"]
+            isOneToOne: false
+            referencedRelation: "warehouse_levels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      warehouse_products: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          max_stock: number | null
+          min_stock: number | null
+          name: string
+          sku: string
+          unit: string | null
+          updated_at: string
+          weight_kg: number | null
+          weight_per_unit_kg: number | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          max_stock?: number | null
+          min_stock?: number | null
+          name: string
+          sku: string
+          unit?: string | null
           updated_at?: string
           weight_kg?: number | null
+          weight_per_unit_kg?: number | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          max_stock?: number | null
+          min_stock?: number | null
+          name?: string
+          sku?: string
+          unit?: string | null
+          updated_at?: string
+          weight_kg?: number | null
+          weight_per_unit_kg?: number | null
         }
         Relationships: []
       }
@@ -1911,7 +2029,7 @@ export type Database = {
         Row: {
           created_at: string
           id: string
-          last_updated_by: string | null
+          location_id: string | null
           product_id: string | null
           quantity: number
           slot_code: string
@@ -1920,7 +2038,7 @@ export type Database = {
         Insert: {
           created_at?: string
           id?: string
-          last_updated_by?: string | null
+          location_id?: string | null
           product_id?: string | null
           quantity?: number
           slot_code: string
@@ -1929,13 +2047,20 @@ export type Database = {
         Update: {
           created_at?: string
           id?: string
-          last_updated_by?: string | null
+          location_id?: string | null
           product_id?: string | null
           quantity?: number
           slot_code?: string
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "warehouse_slot_inventory_location_id_fkey"
+            columns: ["location_id"]
+            isOneToOne: false
+            referencedRelation: "warehouse_locations"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "warehouse_slot_inventory_product_id_fkey"
             columns: ["product_id"]
@@ -1948,49 +2073,49 @@ export type Database = {
       warehouse_stock_movements: {
         Row: {
           created_at: string
-          from_slot_code: string | null
-          goods_received_id: string | null
+          from_location_id: string | null
           id: string
           movement_type: string
           notes: string | null
-          performed_by: string | null
-          product_id: string
+          product_id: string | null
           quantity: number
-          to_slot_code: string | null
+          reference: string | null
+          to_location_id: string | null
+          user_id: string | null
           weight_kg: number | null
         }
         Insert: {
           created_at?: string
-          from_slot_code?: string | null
-          goods_received_id?: string | null
+          from_location_id?: string | null
           id?: string
           movement_type: string
           notes?: string | null
-          performed_by?: string | null
-          product_id: string
+          product_id?: string | null
           quantity: number
-          to_slot_code?: string | null
+          reference?: string | null
+          to_location_id?: string | null
+          user_id?: string | null
           weight_kg?: number | null
         }
         Update: {
           created_at?: string
-          from_slot_code?: string | null
-          goods_received_id?: string | null
+          from_location_id?: string | null
           id?: string
           movement_type?: string
           notes?: string | null
-          performed_by?: string | null
-          product_id?: string
+          product_id?: string | null
           quantity?: number
-          to_slot_code?: string | null
+          reference?: string | null
+          to_location_id?: string | null
+          user_id?: string | null
           weight_kg?: number | null
         }
         Relationships: [
           {
-            foreignKeyName: "warehouse_stock_movements_goods_received_id_fkey"
-            columns: ["goods_received_id"]
+            foreignKeyName: "warehouse_stock_movements_from_location_id_fkey"
+            columns: ["from_location_id"]
             isOneToOne: false
-            referencedRelation: "goods_received"
+            referencedRelation: "warehouse_locations"
             referencedColumns: ["id"]
           },
           {
@@ -2000,35 +2125,48 @@ export type Database = {
             referencedRelation: "warehouse_products"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "warehouse_stock_movements_to_location_id_fkey"
+            columns: ["to_location_id"]
+            isOneToOne: false
+            referencedRelation: "warehouse_locations"
+            referencedColumns: ["id"]
+          },
         ]
       }
       weekly_reports: {
         Row: {
-          generated_at: string
+          created_at: string
           generated_by: string | null
           id: string
-          report_data: Json
-          status: string
-          week_end_date: string
-          week_start_date: string
+          report_data: Json | null
+          sent_to: Json | null
+          status: string | null
+          updated_at: string
+          week_number: number
+          year: number
         }
         Insert: {
-          generated_at?: string
+          created_at?: string
           generated_by?: string | null
           id?: string
-          report_data: Json
-          status?: string
-          week_end_date: string
-          week_start_date: string
+          report_data?: Json | null
+          sent_to?: Json | null
+          status?: string | null
+          updated_at?: string
+          week_number: number
+          year: number
         }
         Update: {
-          generated_at?: string
+          created_at?: string
           generated_by?: string | null
           id?: string
-          report_data?: Json
-          status?: string
-          week_end_date?: string
-          week_start_date?: string
+          report_data?: Json | null
+          sent_to?: Json | null
+          status?: string | null
+          updated_at?: string
+          week_number?: number
+          year?: number
         }
         Relationships: []
       }
@@ -2036,42 +2174,57 @@ export type Database = {
     Views: {
       analytics_summary: {
         Row: {
-          date: string | null
-          laser_time: number | null
-          laser_units: number | null
-          operator_code: string | null
-          operator_id: string | null
+          boxes_produced: number | null
+          downtime_minutes: number | null
+          machine_name: string | null
           operator_name: string | null
-          total_scrap: number | null
-          total_shifts: number | null
-          total_time: number | null
-          total_units: number | null
-          welder_time: number | null
-          welder_units: number | null
+          setup_time_minutes: number | null
+          shift_date: string | null
+          shift_type: string | null
+          sku: string | null
+          total_hours: number | null
+          week_number: number | null
+          year: number | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "shift_records_operator_id_fkey"
-            columns: ["operator_id"]
-            isOneToOne: false
-            referencedRelation: "operators"
-            referencedColumns: ["id"]
-          },
-        ]
+        Insert: {
+          boxes_produced?: number | null
+          downtime_minutes?: number | null
+          machine_name?: string | null
+          operator_name?: string | null
+          setup_time_minutes?: number | null
+          shift_date?: string | null
+          shift_type?: string | null
+          sku?: string | null
+          total_hours?: number | null
+          week_number?: number | null
+          year?: number | null
+        }
+        Update: {
+          boxes_produced?: number | null
+          downtime_minutes?: number | null
+          machine_name?: string | null
+          operator_name?: string | null
+          setup_time_minutes?: number | null
+          shift_date?: string | null
+          shift_type?: string | null
+          sku?: string | null
+          total_hours?: number | null
+          week_number?: number | null
+          year?: number | null
+        }
+        Relationships: []
       }
       goods_movements: {
         Row: {
+          counterparty: string | null
           created_at: string | null
+          direction: string | null
           id: string | null
-          invoice: string | null
           movement_date: string | null
-          movement_type: string | null
           notes: string | null
-          partner: string | null
+          po_number: string | null
           quantity: number | null
-          raw_material_id: string | null
-          reference_number: string | null
-          user_id: string | null
+          sku: string | null
         }
         Relationships: []
       }
@@ -2081,45 +2234,23 @@ export type Database = {
         Args: { target_date: string; target_rates: Json }
         Returns: undefined
       }
-      calculate_daily_oee_summary_new: {
-        Args: { target_date: string; target_rates: Json }
-        Returns: undefined
-      }
       delete_pallets_by_numbers: {
         Args: { pallet_numbers: string[] }
-        Returns: {
-          deleted_pallet_id: string
-          deleted_pallet_number: string
-          had_assignments: number
-        }[]
+        Returns: number
       }
       delete_printed_labels_by_date: {
         Args: { target_date: string }
-        Returns: {
-          deleted_count: number
-          deleted_ids: string[]
-        }[]
+        Returns: number
       }
-      delete_test_labels_by_date: {
-        Args: { target_date: string }
-        Returns: {
-          deleted_assignments: number
-          deleted_labels: number
-        }[]
+      fix_missing_hours: { Args: never; Returns: number }
+      generate_next_box_number: {
+        Args: { p_po: string; p_sku: string }
+        Returns: number
       }
-      fix_missing_hours: {
-        Args: never
-        Returns: {
-          activity_type: string
-          corrected: boolean
-          estimated_hours: number
-          original_hours: number
-          record_id: string
-          units_produced: number
-        }[]
+      generate_next_pallet_number: {
+        Args: { p_prefix?: string }
+        Returns: string
       }
-      generate_next_box_number: { Args: never; Returns: string }
-      generate_next_pallet_number: { Args: never; Returns: string }
       generate_weekly_production_report: {
         Args: { week_start_date: string }
         Returns: Json
@@ -2127,32 +2258,32 @@ export type Database = {
       get_data_quality_metrics: {
         Args: never
         Returns: {
-          activities_corrected: Json
-          correction_percentage: number
-          records_with_corrections: number
+          avg_hours: number
+          data_completeness: number
+          records_with_hours: number
+          records_with_sku: number
+          records_without_hours: number
+          records_without_sku: number
           total_records: number
         }[]
       }
       get_stock_levels: {
         Args: never
         Returns: {
-          current_stock: number
-          material_code: string
-          material_id: string
-          material_name: string
-          total_dispatched: number
-          total_received: number
+          net_stock: number
+          sku: string
+          total_in: number
+          total_out: number
         }[]
       }
       populate_oee_summaries: {
         Args: { end_date: string; start_date: string; target_rates: Json }
         Returns: undefined
       }
-      update_po_progress: {
-        Args: { input_po_number: string }
+      update_timesheet_tracking: {
+        Args: { p_operator_id: string; p_week_number: number; p_year: number }
         Returns: undefined
       }
-      update_timesheet_tracking: { Args: never; Returns: undefined }
     }
     Enums: {
       [_ in never]: never
