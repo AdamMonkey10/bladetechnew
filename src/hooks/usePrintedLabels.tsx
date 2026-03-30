@@ -60,7 +60,7 @@ export function usePrintedLabels(dateFrom?: Date, dateTo?: Date, limit = 100, of
       const { data, error } = await query;
       if (error) throw error;
       
-      const result = data as PrintedLabel[];
+      const result = (data || []) as unknown as PrintedLabel[];
       
       // Cache ancient data in localStorage with extended duration
       if (localStorageCache.shouldUseLocalStorage(result || [])) {
