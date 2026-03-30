@@ -172,12 +172,12 @@ export function useTimesheetTracking() {
             operator_id: operatorId,
             operator_name: record.operators?.operator_name || 'Unknown',
             operator_code: record.operators?.operator_code || 'Unknown',
-            total_overdue: record.timesheet_submitted ? 0 : (record.days_overdue > 0 ? 1 : 0),
-            highest_escalation: record.escalation_level as 'none' | 'late' | 'critical',
-            oldest_overdue_date: record.timesheet_submitted ? null : record.work_date,
+            total_overdue: record.timesheet_submitted ? 0 : ((record.days_overdue || 0) > 0 ? 1 : 0),
+            highest_escalation: (record.escalation_level || 'none') as 'none' | 'late' | 'critical',
+            oldest_overdue_date: null,
             critical_count: record.escalation_level === 'critical' && !record.timesheet_submitted ? 1 : 0,
             late_count: record.escalation_level === 'late' && !record.timesheet_submitted ? 1 : 0,
-            is_compliant: record.timesheet_submitted || record.days_overdue === 0,
+            is_compliant: record.timesheet_submitted || (record.days_overdue || 0) === 0,
             total_tracking_records: 1
           });
         } else {
