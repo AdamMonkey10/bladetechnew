@@ -5,37 +5,29 @@ import { getBatchCacheDuration, localStorageCache } from '@/utils/cacheUtils';
 
 export interface PrintedLabel {
   id: string;
-  document_id?: string;
-  customer: string;
-  po: string;
+  po?: string | null;
   sku: string;
-  operator: string;
-  laser: string;
-  invoice?: string;
-  quantity: number;
-  pallet_name?: string;
-  print_date: string;
-  box_number?: string;
-  line_item_index?: number;
+  invoice?: string | null;
+  quantity?: number | null;
+  date_printed?: string | null;
+  box_number?: number | null;
+  line_item_index?: number | null;
+  line_number?: number | null;
   created_at: string;
-  user_id: string;
-  updated_at: string;
+  user_id?: string | null;
+  session_id?: string | null;
+  goods_received_id?: string | null;
 }
 
 export interface PrintedLabelInsert {
-  document_id?: string;
-  customer: string;
-  po: string;
   sku: string;
-  operator: string;
-  laser: string;
+  po?: string;
   invoice?: string;
-  quantity: number;
-  pallet_name?: string;
-  print_date: string;
-  box_number?: string;
+  quantity?: number;
+  date_printed?: string;
+  box_number?: number;
   line_item_index?: number;
-  user_id: string;
+  user_id?: string;
 }
 
 export function usePrintedLabels(dateFrom?: Date, dateTo?: Date, limit = 100, offset = 0) {
