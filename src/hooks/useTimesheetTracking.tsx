@@ -3,15 +3,21 @@ import { supabase } from '@/integrations/supabase/client';
 
 export interface TimesheetTrackingRecord {
   id: string;
-  operator_id: string;
-  work_date: string;
-  clockfy_events_exist: boolean;
-  timesheet_submitted: boolean;
-  timesheet_submitted_at: string | null;
-  days_overdue: number;
-  escalation_level: 'none' | 'late' | 'critical';
+  operator_id: string | null;
+  operator_name?: string | null;
+  week_number: number;
+  year: number;
+  actual_shifts?: number | null;
+  expected_shifts?: number | null;
+  missing_shifts?: number | null;
+  compliance_rate?: number | null;
+  status?: string | null;
+  timesheet_submitted?: boolean;
+  timesheet_submitted_at?: string | null;
+  days_overdue?: number;
+  escalation_level?: string;
   created_at: string;
-  updated_at: string;
+  last_updated?: string | null;
   operators?: {
     operator_name: string;
     operator_code: string;
