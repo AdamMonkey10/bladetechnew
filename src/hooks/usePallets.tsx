@@ -61,10 +61,10 @@ export function useActivePallets(customer?: string, po_number?: string) {
         .order('created_at', { ascending: false });
 
       if (customer) {
-        query = query.eq('customer', customer);
+        query = query.eq('sku', customer);
       }
       if (po_number) {
-        query = query.eq('po_number', po_number);
+        query = query.eq('po', po_number);
       }
 
       const { data, error } = await query;
