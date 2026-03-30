@@ -83,11 +83,11 @@ export const useCustomerPOs = () => {
           po_number: po.po_number,
           po_date: po.po_date,
           delivery_date: po.delivery_date,
-          status: po.status,
+          status: po.status as string,
           items: po.items as any,
           notes: po.notes,
           user_id: user.id,
-        })
+        } as any)
         .select()
         .single();
 
