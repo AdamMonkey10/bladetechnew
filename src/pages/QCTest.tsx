@@ -432,12 +432,12 @@ export default function QCTest() {
                 if (batchId) {
                   const { data } = await supabase
                     .from('goods_received')
-                    .select('invoice, supplier, suppliers(name)')
+                    .select('invoice, supplier')
                     .eq('id', batchId)
                     .single();
                   if (data?.invoice) {
                     setSelectedInvoice(data.invoice);
-                    setSelectedSupplier(data.suppliers?.name || '');
+                    setSelectedSupplier(data.supplier || '');
                     setValue('invoice', data.invoice);
                   }
                 }
