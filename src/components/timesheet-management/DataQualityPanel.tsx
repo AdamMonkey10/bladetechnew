@@ -38,7 +38,7 @@ export function DataQualityPanel() {
   };
 
   const qualityScore = metrics 
-    ? Math.round(100 - (metrics.correction_percentage || 0))
+    ? Math.round(metrics.data_completeness || 0)
     : 0;
 
   const getQualityBadge = (score: number) => {
