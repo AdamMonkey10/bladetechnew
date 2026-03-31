@@ -358,6 +358,7 @@ ${companyLogoZPL}
     try {
       const newPallet = await createPallet.mutateAsync({
         pallet_number: `${sessionData.customer}-${sessionData.PO}`,
+        customer: sessionData.customer,
         po: sessionData.PO,
         sku: sessionData.SKU,
       });
@@ -436,7 +437,10 @@ ${companyLogoZPL}
     try {
       // Generate box number using the proper hook - this will fail if box number generation fails
       console.log('🔢 Generating box number...');
-      const boxReference = await generateBoxNumber.mutateAsync();
+      const boxReference = await generateBoxNumber.mutateAsync({
+        sku: sessionData.SKU || '',
+        po: sessionData.PO || '',
+      });
       console.log('✅ Box number generated:', boxReference);
       
       // Validate box number was generated successfully - if this fails, stop immediately

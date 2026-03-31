@@ -12,6 +12,11 @@ interface LaserSession {
   invoice?: string;
   operator_id?: string;
   session_date: string;
+  // Denormalized display fields (no FK joins needed)
+  customer_name?: string;
+  po_number?: string;
+  operator_name?: string;
+  laser_name?: string;
 }
 
 interface SessionData {
@@ -64,8 +69,8 @@ export function useLabelSessions() {
         data.forEach((session: any) => {
           dbSessions[session.laser_machine_id] = {
             customer_po_id: session.customer_po_id || '',
-            customer: session.customer_pos?.customer_name || '',
-            PO: session.customer_pos?.po_number || '',
+            customer: session.customer_name || '',
+            PO: session.po_number || '',
             invoice: session.invoice || '',
             SKU: session.sku || '',
             quantity: session.quantity?.toString() || '',
@@ -73,9 +78,9 @@ export function useLabelSessions() {
             boxAmount: 0, // Will be populated when product is selected
             date: session.session_date,
             operator_id: session.operator_id || '',
-            operator_name: session.operators?.operator_name || '',
+            operator_name: session.operator_name || '',
             laser_machine_id: session.laser_machine_id,
-            laser_name: session.machines?.machine_name || ''
+            laser_name: session.laser_name || ''
           };
         });
         setSessions(dbSessions);
@@ -104,14 +109,18 @@ export function useLabelSessions() {
         quantity: parseInt(sessionData.quantity) || undefined,
         invoice: sessionData.invoice || undefined,
         operator_id: sessionData.operator_id || undefined,
-        session_date: sessionData.date
+        session_date: sessionData.date,
+        // Denormalized display fields — no FK joins required on read
+        customer_name: sessionData.customer || undefined,
+        po_number: sessionData.PO || undefined,
+        operator_name: sessionData.operator_name || undefined,
+        laser_name: sessionData.laser_name || undefined,
       };
 
       const { error } = await supabase
         .from('label_printing_sessions')
         .upsert({
-          sku: sessionData.SKU || 'unknown',
-          po: sessionData.PO || undefined,
+          ...sessionPayload,
           user_id: user.id,
         } as any);
 

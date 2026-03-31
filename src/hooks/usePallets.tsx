@@ -5,6 +5,7 @@ import { useToast } from '@/hooks/use-toast';
 export interface Pallet {
   id: string;
   pallet_number: string;
+  customer?: string | null;
   po?: string | null;
   sku?: string | null;
   status?: string | null;
@@ -23,6 +24,7 @@ export interface PalletAssignment {
 
 export interface CreatePalletData {
   pallet_number: string;
+  customer?: string;
   po?: string;
   sku?: string;
 }
@@ -126,6 +128,7 @@ export function useCreatePallet() {
         .from('pallets')
         .insert([{
           pallet_number: palletNumber,
+          customer: data.customer,
           po: data.po,
           sku: data.sku,
           user_id: (await supabase.auth.getUser()).data.user?.id!

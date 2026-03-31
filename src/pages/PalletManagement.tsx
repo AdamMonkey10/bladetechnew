@@ -556,6 +556,7 @@ function CreatePalletForm({ onSubmit, pos }: { onSubmit: (data: CreatePalletData
     e.preventDefault();
     onSubmit({
       pallet_number: `PLT-${Date.now()}`,
+      customer: customer,
       po: poNumber,
       sku: customer,
     });

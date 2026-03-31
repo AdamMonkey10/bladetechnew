@@ -98,7 +98,10 @@ export function PrintedLabelsImport({ onClose }: PrintedLabelsImportProps) {
           console.log(`Processing record ${index + 1}:`, item);
           
           // Generate box number for each record
-          const boxNumber = await generateBoxNumber.mutateAsync();
+          const boxNumber = await generateBoxNumber.mutateAsync({
+            sku: item.SKU || item.sku || '',
+            po: item.po || item.PO || '',
+          });
           
           return {
             document_id: item.id,

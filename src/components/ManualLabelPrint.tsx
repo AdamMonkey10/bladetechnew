@@ -211,7 +211,10 @@ export function ManualLabelPrint() {
 
       // Print each label with unique box number
       for (let i = 0; i < labelQuantity; i++) {
-        const boxNumber = await generateBoxNumber.mutateAsync();
+        const boxNumber = await generateBoxNumber.mutateAsync({
+          sku: sessionData.SKU || '',
+          po: sessionData.PO || '',
+        });
 
         // Create the label record
         const labelRecord = {

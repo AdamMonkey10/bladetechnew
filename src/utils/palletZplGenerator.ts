@@ -82,7 +82,7 @@ export const generatePalletZPL = (data: PalletLabelData, labelSize?: LabelDimens
 ^XA
 ^PW${dims.widthDots}
 ${companyLogoZPL(logoX, logoY)}
-^FO15,${customerY}^FB${fieldBlockWidth},1,0,R,0^A0N,${customerFontSize},${customerFontSize}^FD${pallet.sku || ''}^FS
+^FO15,${customerY}^FB${fieldBlockWidth},1,0,R,0^A0N,${customerFontSize},${customerFontSize}^FD${pallet.customer || ''}^FS
 ^FO15,${poY}^FB${fieldBlockWidth},1,0,R,0^A0,${poFontSize},${poFontSize}^FDPO: ${pallet.po || ''}^FS
 ${skuLines}
 ^FO0,${totalUnitsY}^FB${dims.widthDots},1,0,C,0^A0N,${totalUnitsFontSize},${totalUnitsFontSize}^FD${totalUnits} BLADES^FS
