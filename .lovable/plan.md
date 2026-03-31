@@ -1,16 +1,28 @@
 
 
-## Plan: Apply Schema Migration
+## Plan: Delete bladetech-legacy Folder
 
-The `label_printing_sessions` table is currently missing `customer_name`, `po_number`, `operator_name`, `laser_name` columns. The `pallets` table is missing `customer`. No code changes needed — only the migration.
+Remove the entire `bladetech-legacy/` directory from the project. This folder contains the old Firebase-based React app that has been fully migrated to Lovable Cloud.
+
+### What gets deleted
+
+All files under `bladetech-legacy/`, including:
+- Firebase config, hosting rules, Firestore rules
+- Legacy React components (MUI-based shift forms, calibration, label printing, etc.)
+- Firebase auth helpers (`AuthProvider.js`, `authService.js`, `signin.js`, `signup.js`, `signout.js`)
+- GitHub Actions workflows for Firebase Hosting
+- Generated Firebase Data Connect SDK
+- Legacy `package.json` and lock files
+
+### What stays untouched
+
+- All `src/` code (the active Lovable app)
+- `supabase/` migrations and edge functions
+- The Firestore warehouse adapter (`src/features/warehouse/adapters/firestoreWarehouseRepo.ts`) — left in place since you only asked to remove the legacy folder
 
 ### Steps
 
-1. Run the provided SQL migration via the database migration tool to add:
-   - `customer_name`, `po_number`, `operator_name`, `laser_name` to `label_printing_sessions`
-   - `customer` to `pallets`
+1. Delete the `bladetech-legacy/` directory and all its contents
 
-2. Confirm the columns exist after migration completes.
-
-No TypeScript files will be touched.
+No database or config changes needed.
 
