@@ -820,9 +820,13 @@ export type Database = {
       label_printing_sessions: {
         Row: {
           created_at: string
+          customer_name: string | null
           end_box: number | null
           id: string
+          laser_name: string | null
+          operator_name: string | null
           po: string | null
+          po_number: string | null
           sku: string
           start_box: number | null
           total_labels: number | null
@@ -830,9 +834,13 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          customer_name?: string | null
           end_box?: number | null
           id?: string
+          laser_name?: string | null
+          operator_name?: string | null
           po?: string | null
+          po_number?: string | null
           sku: string
           start_box?: number | null
           total_labels?: number | null
@@ -840,9 +848,13 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          customer_name?: string | null
           end_box?: number | null
           id?: string
+          laser_name?: string | null
+          operator_name?: string | null
           po?: string | null
+          po_number?: string | null
           sku?: string
           start_box?: number | null
           total_labels?: number | null
@@ -1135,6 +1147,7 @@ export type Database = {
       pallets: {
         Row: {
           created_at: string
+          customer: string | null
           id: string
           notes: string | null
           pallet_number: string
@@ -1146,6 +1159,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          customer?: string | null
           id?: string
           notes?: string | null
           pallet_number: string
@@ -1157,6 +1171,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          customer?: string | null
           id?: string
           notes?: string | null
           pallet_number?: string
